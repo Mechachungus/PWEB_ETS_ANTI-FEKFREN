@@ -1,10 +1,10 @@
 /* ======== CSS Variables (New Theme) ======== */
 :root {
-    --primary-color: #345a40; /* Deep Green from logo mountain */
-    --primary-color-dark: #2a4833; /* Darker green */
-    --accent-color: #ffb703; /* Warm Orange/Yellow from logo sun */
-    --accent-color-dark: #fca311; /* Darker orange */
-    --text-dark: #003049; /* Dark Navy Blue from logo bird/text */
+    --primary-color: #345a40; 
+    --primary-color-dark: #2a4833;
+    --accent-color: #ffb703; 
+    --accent-color-dark: #fca311;
+    --text-dark: #003049; 
     
     --text-light: #f4f4f4;
     --text-light-gray: #555;
@@ -14,10 +14,8 @@
     --font-primary: 'Montserrat', sans-serif;
     --font-secondary: 'Playfair Display', serif;
 
-    /* New: Sun properties (controlled by JS) */
+    /* Sun properties */
     --sun-size: 150px;
-    --sun-start-pos-x: 100vw; /* Starts off-screen right */
-    --sun-end-pos-x: -100px; /* Ends off-screen left */
     --sun-initial-color: #ffde59; /* Bright yellow */
     --sun-final-color: #ff8c00; /* Deep orange */
 }
@@ -33,9 +31,10 @@ body {
     font-family: var(--font-primary);
     color: var(--text-dark);
     line-height: 1.6;
-    background-color: var(--background-white);
-    min-height: 200vh; /* Ensure enough scrollable height for sun journey */
-    position: relative; /* For scroll-dependent elements */
+    /* Set a base background color */
+    background-color: #fdfdfd; 
+    min-height: 200vh;
+    position: relative;
 }
 
 .container {
@@ -77,8 +76,8 @@ img {
 }
 .btn-book {
     background-color: transparent;
-    color: var(--text-dark); /* Changed to dark for default header state */
-    border-color: rgba(0, 0, 0, 0.2); /* Subtle dark border */
+    color: var(--text-dark);
+    border-color: rgba(0, 0, 0, 0.2);
     padding: 8px 18px;
 }
 .btn-book:hover {
@@ -93,12 +92,18 @@ img {
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1000;
+    /* Header is on top */
+    z-index: 1000; 
     padding: 15px 0;
-    color: var(--text-dark); /* Default: Dark text as hero image is gone */
-    background-color: var(--background-white); /* Default: White background */
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Default: Shadow */
+    color: var(--text-dark); 
+    background-color: var(--background-white); 
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
     transition: background-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* This class is added by JS */
+.minimal-header.scrolled {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .minimal-header .container-fluid {
@@ -120,10 +125,8 @@ img {
 .header-logo {
     height: 45px;
     width: auto;
-    /* Logo should be the colored version from your image */
     transition: filter 0.4s ease;
 }
-
 .header-right-nav {
     display: flex;
     align-items: center;
@@ -140,45 +143,70 @@ img {
 /* --- THE SUN ELEMENT --- */
 #the-sun {
     position: fixed;
-    top: 50vh; /* Will be adjusted by JS, starting at middle height */
-    right: 0; /* Will be adjusted by JS, starting from the right */
+    top: 50vh; /* Controlled by JS */
+    right: 0; /* Controlled by JS */
     width: var(--sun-size);
     height: var(--sun-size);
     border-radius: 50%;
-    background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.6) 10%, var(--sun-initial-color) 40%, var(--sun-initial-color) 70%, rgba(255, 255, 255, 0) 100%); /* Radial gradient for glow */
-    box-shadow: 0 0 40px 10px rgba(255, 200, 0, 0.6); /* Initial glow */
-    z-index: 900; /* Below header, above content */
-    pointer-events: none; /* Allows clicks to pass through */
-    transform: translate(50%, -50%); /* Center the sun based on its position */
-    opacity: 0; /* Hidden by default, JS will make it visible */
-    transition: opacity 0.5s ease-out; /* Fade in/out */
+    
+    /* Brighter, more radiant gradient */
+    background: radial-gradient(
+        circle at 50% 50%,
+        rgba(255, 255, 255, 0.9) 0%, /* Brighter core */
+        rgba(255, 255, 255, 0.7) 15%,
+        var(--sun-initial-color) 40%, /* Color starts */
+        var(--sun-initial-color) 60%,
+        rgba(255, 204, 0, 0.5) 80%, /* Softer outer glow */
+        rgba(255, 204, 0, 0) 100%
+    ); 
+    
+    /* More intense shadow for a stronger "shine" */
+    box-shadow: 0 0 60px 20px var(--sun-initial-color),
+                0 0 100px 40px rgba(255, 200, 0, 0.5); 
+    
+    /* Sun is in the background */
+    z-index: 10; 
+    pointer-events: none;
+    transform: translate(50%, -50%);
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
 }
 
 /* --- Content Adaptation --- */
-.content-adapt {
-    padding-left: 20px; /* Default padding */
-    padding-right: 20px;
-    transition: padding-left 0.5s ease, padding-right 0.5s ease;
-}
-
-.content-adapt.sun-offset-left {
-    padding-left: calc(var(--sun-size) + 40px); /* Add space on left */
-}
-
-.content-adapt.sun-offset-right {
-    padding-right: calc(var(--sun-size) + 40px); /* Add space on right */
-}
+/* ALL '.content-adapt' styles have been REMOVED */
 
 
 /* ======== Page Content ======== */
 .page-content {
-    background-color: var(--background-white);
-    position: relative;
+    /* Content is on top of the sun */
+    position: relative; 
     z-index: 50;
-    padding-top: 80px; /* Initial buffer below header */
+    padding-top: 80px;
+    
+    /* This lets the sun show through from behind */
+    background-color: transparent;
 }
+
+/* Give individual sections a background */
+.discover-section,
+.content-grid-section,
+.newsletter-section {
+    background-color: var(--background-white); /* White bg for content */
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+
+.content-grid-section {
+    padding-top: 40px;
+    padding-bottom: 80px;
+}
+
+.newsletter-section {
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
 .discover-section {
-    padding: 80px 0;
     text-align: center;
     max-width: 700px;
     margin: 0 auto;
@@ -203,7 +231,7 @@ img {
 
 /* ======== Two-Column Content Grid ======== */
 .content-grid-section {
-    padding: 40px 0 80px;
+    /* (styles remain the same) */
 }
 .grid-row {
     display: grid;
@@ -257,7 +285,6 @@ img {
 
 /* ======== Newsletter Signup ======== */
 .newsletter-section {
-    padding: 60px 0;
     text-align: center;
     border-top: 1px solid var(--border-color);
     border-bottom: 1px solid var(--border-color);
@@ -284,6 +311,9 @@ img {
     background-color: var(--text-dark);
     color: var(--text-light);
     padding: 80px 0 40px;
+    /* Footer is also on top of the sun */
+    position: relative;
+    z-index: 50; 
 }
 .footer-grid {
     display: grid;
@@ -349,23 +379,17 @@ img {
     .header-right-nav { gap: 10px; }
     .btn-book, .lang-selector { font-size: 14px; }
 
-    .discover-section { padding: 60px 0; }
+    .discover-section { padding-top: 60px; padding-bottom: 60px; }
     .discover-section h2 { font-size: 32px; }
 
-    .content-grid-section { padding: 20px 0 40px; }
+    .content-grid-section { padding-top: 20px; padding-bottom: 40px; }
     .grid-row { gap: 30px; margin-bottom: 40px; }
     .grid-text h3 { font-size: 28px; }
 
+    .newsletter-section { padding-top: 60px; padding-bottom: 60px; }
     .newsletter-section a { font-size: 24px; }
     
     .footer-grid {
         grid-template-columns: 1fr;
-    }
-
-    /* Reset content adaptation on very small screens if it becomes too intrusive */
-    .content-adapt.sun-offset-left,
-    .content-adapt.sun-offset-right {
-        padding-left: 20px;
-        padding-right: 20px;
     }
 }

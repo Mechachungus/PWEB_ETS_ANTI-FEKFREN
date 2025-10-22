@@ -1,14 +1,15 @@
 document.addEventListener("DOMContentLoaded", function() {
     const header = document.querySelector(".minimal-header");
     const theSun = document.getElementById("the-sun");
-    const contentAdapters = document.querySelectorAll(".content-adapt");
     const mainFooter = document.getElementById("main-footer");
 
     // Define the sun's journey parameters
-    const SUN_START_SCROLL = 0; // When sun begins its journey (start of page)
-    const SUN_END_SCROLL_FACTOR = 0.8; // Sun ends its journey at 80% of scrollable height
-    const SUN_CENTER_Y_PERCENT = 40; // Sun's center Y position in vh (top of viewport)
-    const SUN_SIZE_PX = parseInt(getComputedStyle(theSun).getPropertyValue('--sun-size')); // Get sun size from CSS variable
+    const SUN_END_SCROLL_FACTOR = 0.8; // Sun ends journey at 80% of scrollable height
+    const SUN_START_Y_VH = 80; // Start at 80vh from top (near bottom)
+    const SUN_PEAK_Y_VH = 20; // Peak at 20vh from top (near top)
+
+    const sunInitialColorRgb = hexToRgb(getComputedStyle(document.documentElement).getPropertyValue('--sun-initial-color').trim());
+    const sunFinalColorRgb = hexToRgb(getComputedStyle(document.documentElement).getPropertyValue('--sun-final-color').trim());
 
     // --- Helper for color interpolation (RGB) ---
     function interpolateColor(color1, color2, factor) {
@@ -25,84 +26,74 @@ document.addEventListener("DOMContentLoaded", function() {
         return [ (bigint >> 16) & 255, (bigint >> 8) & 255, bigint & 255 ];
     }
 
-    const sunInitialColorRgb = hexToRgb(getComputedStyle(document.documentElement).getPropertyValue('--sun-initial-color').trim());
-    const sunFinalColorRgb = hexToRgb(getComputedStyle(document.documentElement).getPropertyValue('--sun-final-color').trim());
-
-
     // --- Scroll event handler ---
     function handleScroll() {
         const scrollY = window.scrollY;
         const totalScrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
         const sunEndScroll = totalScrollableHeight * SUN_END_SCROLL_FACTOR;
+        const viewportWidth = window.innerWidth;
+        const viewportHeight = window.innerHeight;
 
-        // Header scroll effect
-        if (scrollY > 50) {
+        // Header scroll logic (remains the same, but we don't need .scrolled)
+        // You can keep this if you want the shadow, or remove it.
+        // Let's keep it for the shadow.
+        if (scrollY > 10) { // Add shadow almost immediately
             header.classList.add("scrolled");
         } else {
             header.classList.remove("scrolled");
         }
 
         // Sun movement logic
-        if (scrollY >= SUN_START_SCROLL && scrollY <= sunEndScroll) {
-            theSun.style.opacity = 1; // Make sun visible
-            let scrollProgress = (scrollY - SUN_START_SCROLL) / (sunEndScroll - SUN_START_SCROLL);
-            scrollProgress = Math.min(1, Math.max(0, scrollProgress)); // Clamp between 0 and 1
-
-            // Calculate X position (East to West)
-            const viewportWidth = window.innerWidth;
-            const sunStartX = viewportWidth + SUN_SIZE_PX / 2; // Start off-screen right
-            const sunEndX = -SUN_SIZE_PX / 2; // End off-screen left
-            const sunX = sunStartX - (scrollProgress * (sunStartX - sunEndX));
+        if (scrollY >= 0 && scrollY <= sunEndScroll) {
+            theSun.style.opacity = 1; 
             
-            // Calculate Y position (subtle arc: start low-right, peak high-middle, end low-left)
-            // This is a simplified quadratic arc for illustration
-            const sunYOffsetFactor = Math.sin(scrollProgress * Math.PI); // Peaks in middle, 0 at start/end
-            const sunY = (SUN_CENTER_Y_PERCENT * window.innerHeight / 100) - (sunYOffsetFactor * SUN_SIZE_PX * 0.8); // Adjust multiplier for arc height
+            let scrollProgress = scrollY / sunEndScroll;
+            scrollProgress = Math.min(1, Math.max(0, scrollProgress)); // Clamp 0-1
+
+            // 1. Calculate X position (East to West)
+            // Moves from 110% (off-screen right) to -10% (off-screen left)
+            const sunX = viewportWidth * (1.1 - (scrollProgress * 1.2));
+            
+            // 2. ✅ Calculate Y position (Parabolic Arc)
+            const peakY = viewportHeight * (SUN_PEAK_Y_VH / 100);
+            const startY = viewportHeight * (SUN_START_Y_VH / 100);
+            const arcAmplitude = startY - peakY;
+            
+            // Parabolic factor: ( -4 * (x-0.5)^2 + 1 ) gives a 0 -> 1 -> 0 curve
+            const parabolicFactor = -4 * Math.pow(scrollProgress - 0.5, 2) + 1;
+            
+            // Apply the factor to the amplitude
+            const sunY = startY - (parabolicFactor * arcAmplitude);
 
             theSun.style.left = `${sunX}px`;
             theSun.style.top = `${sunY}px`;
 
-            // Interpolate sun color
+            // 3. Interpolate sun color
             const currentColor = interpolateColor(sunInitialColorRgb, sunFinalColorRgb, scrollProgress);
-            theSun.style.background = `radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.6) 10%, ${currentColor} 40%, ${currentColor} 70%, rgba(255, 255, 255, 0) 100%)`;
-            theSun.style.boxShadow = `0 0 40px 10px ${currentColor.replace('rgb', 'rgba').replace(')', ', 0.6)')}`;
+            
+            // ✅ Update gradient and shadow for the "shine"
+            const currentGlow = currentColor.replace('rgb', 'rgba').replace(')', ', 0.5)');
+            theSun.style.background = `radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 15%, ${currentColor} 40%, ${currentColor} 60%, ${currentGlow} 80%, rgba(255, 204, 0, 0) 100%)`;
+            theSun.style.boxShadow = `0 0 60px 20px ${currentColor}, 0 0 100px 40px ${currentGlow}`;
 
-            // Content adaptation logic
-            const sunRect = theSun.getBoundingClientRect(); // Get sun's current position
-            contentAdapters.forEach(section => {
-                const sectionRect = section.getBoundingClientRect();
 
-                // Only adapt if section is in viewport
-                if (sectionRect.bottom > 0 && sectionRect.top < window.innerHeight) {
-                    if (sunRect.right > sectionRect.left && sunRect.left < sectionRect.right) {
-                        // Sun is horizontally overlapping the section
-                        if (sunRect.x < window.innerWidth / 2) { // Sun is on the left half of viewport
-                            section.classList.remove('sun-offset-right');
-                            section.classList.add('sun-offset-left');
-                        } else { // Sun is on the right half of viewport
-                            section.classList.remove('sun-offset-left');
-                            section.classList.add('sun-offset-right');
-                        }
-                    } else {
-                        section.classList.remove('sun-offset-left', 'sun-offset-right');
-                    }
-                } else {
-                    section.classList.remove('sun-offset-left', 'sun-offset-right');
-                }
-            });
-
-            // Hide sun when it hits the footer
+            // 4. Hide sun when it hits the footer
+            const sunRect = theSun.getBoundingClientRect();
             const footerRect = mainFooter.getBoundingClientRect();
             if (sunRect.bottom > footerRect.top) {
-                theSun.style.opacity = 0;
+                // Calculate fade-out
+                const fadeDistance = 100; // Fade over 100px
+                const overlap = sunRect.bottom - footerRect.top;
+                const opacity = Math.max(0, 1 - (overlap / fadeDistance));
+                theSun.style.opacity = opacity;
             }
 
-        } else {
-            // Hide sun if outside its scroll range
+        } else if (scrollY > sunEndScroll) {
+            // Hide sun after journey is over
             theSun.style.opacity = 0;
-            contentAdapters.forEach(section => {
-                section.classList.remove('sun-offset-left', 'sun-offset-right');
-            });
+        } else {
+            // Hide sun before journey begins (at scrollY = 0)
+            theSun.style.opacity = 0;
         }
     }
 
@@ -110,5 +101,4 @@ document.addEventListener("DOMContentLoaded", function() {
     handleScroll();
     window.addEventListener("scroll", handleScroll);
     window.addEventListener("resize", handleScroll); // Recalculate on resize
-
 });
