@@ -25,8 +25,8 @@
     --bg-final-color: #FFEAD6;   /* Warm Sunset Peach */
     
     /* NEW: Dark Mode Background Colors */
-    --bg-dark-initial: #231942; /* Dark Violet (for "sunrise") */
-    --bg-dark-final: #4A1D56;   /* Dark Purple (for "sunset") */
+    --bg-dark-initial: #7b87c6; /* Brighter start color */
+    --bg-dark-final: #1e1e2d;   /* Deep purple end color */
 
     /* NEW: Moon Colors */
     --moon-color: #E0F2FF;
