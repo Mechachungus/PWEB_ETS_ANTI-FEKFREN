@@ -1,4 +1,5 @@
 /* ======== CSS Variables (New Theme) ======== */
+/* ======== CSS Variables (New Theme) ======== */
 :root {
     --primary-color: #345a40; 
     --primary-color-dark: #2a4833;
@@ -19,9 +20,9 @@
     --sun-initial-color: #ffde59; /* Bright yellow */
     --sun-final-color: #ff8c00; /* Deep orange */
 
-    /* NEW: Page Background Colors */
-    --bg-initial-color: #FFFBEF; /* Very pale yellow */
-    --bg-final-color: #FFF5E6;   /* Very pale orange/peach */
+    /* ✅ UPDATED: More pronounced background colors */
+    --bg-initial-color: #E0F2FF; /* Light Morning Sky Blue */
+    --bg-final-color: #FFEAD6;   /* Warm Sunset Peach */
 }
 
 /* ======== Global Reset & Basics ======== */
