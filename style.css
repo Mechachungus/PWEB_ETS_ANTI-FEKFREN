@@ -1,4 +1,4 @@
-/* ======== ✅ CSS Variables (New Theme) ======== */
+/* ======== CSS Variables (New Theme) ======== */
 :root {
     --primary-color: #345a40; /* Deep Green from logo mountain */
     --primary-color-dark: #2a4833; /* Darker green */
@@ -7,12 +7,19 @@
     --text-dark: #003049; /* Dark Navy Blue from logo bird/text */
     
     --text-light: #f4f4f4;
-    --text-light-gray: #555; /* Slightly darker gray for better contrast */
+    --text-light-gray: #555;
     --background-white: #fff;
     --border-color: #eee;
     
     --font-primary: 'Montserrat', sans-serif;
     --font-secondary: 'Playfair Display', serif;
+
+    /* New: Sun properties (controlled by JS) */
+    --sun-size: 150px;
+    --sun-start-pos-x: 100vw; /* Starts off-screen right */
+    --sun-end-pos-x: -100px; /* Ends off-screen left */
+    --sun-initial-color: #ffde59; /* Bright yellow */
+    --sun-final-color: #ff8c00; /* Deep orange */
 }
 
 /* ======== Global Reset & Basics ======== */
@@ -24,9 +31,11 @@
 
 body {
     font-family: var(--font-primary);
-    color: var(--text-dark); /* Use navy blue for text */
+    color: var(--text-dark);
     line-height: 1.6;
     background-color: var(--background-white);
+    min-height: 200vh; /* Ensure enough scrollable height for sun journey */
+    position: relative; /* For scroll-dependent elements */
 }
 
 .container {
@@ -68,27 +77,30 @@ img {
 }
 .btn-book {
     background-color: transparent;
-    color: var(--text-light);
-    border-color: rgba(255, 255, 255, 0.5);
+    color: var(--text-dark); /* Changed to dark for default header state */
+    border-color: rgba(0, 0, 0, 0.2); /* Subtle dark border */
     padding: 8px 18px;
 }
 .btn-book:hover {
-    background-color: var(--accent-color); /* ✅ Use warm accent on hover */
+    background-color: var(--accent-color);
     border-color: var(--accent-color);
-    color: var(--text-dark); /* Dark text on warm button */
+    color: var(--text-dark);
 }
 
-/* ======== 1. Minimal Fixed Header ======== */
+/* ======== Minimal Fixed Header ======== */
 .minimal-header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 1000;
-    padding: 15px 0; /* Slightly less padding */
-    color: var(--text-light); 
-    transition: background-color 0.4s ease, box-shadow 0.4s ease;
+    padding: 15px 0;
+    color: var(--text-dark); /* Default: Dark text as hero image is gone */
+    background-color: var(--background-white); /* Default: White background */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Default: Shadow */
+    transition: background-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
 }
+
 .minimal-header .container-fluid {
     display: flex;
     justify-content: space-between;
@@ -101,23 +113,14 @@ img {
     font-size: 24px;
     cursor: pointer;
 }
-
-/* ✅ Style for the Logo in the header */
 .hotel-name-center a {
     display: flex;
     align-items: center;
 }
 .header-logo {
-    height: 45px; /* Adjust this to fit your logo */
+    height: 45px;
     width: auto;
-    /* This filter makes the logo white on the transparent hero */
-    /* filter: brightness(0) invert(1); */ 
-    /* Edit: The logo text is already dark, it will contrast poorly
-       on the dark overlay. Let's assume the logo file itself
-       has white text or we use a separate "white" logo file.
-       For now, we'll assume the provided logo works.
-       If the logo has dark text, we MUST remove the hero overlay.
-    */
+    /* Logo should be the colored version from your image */
     transition: filter 0.4s ease;
 }
 
@@ -133,60 +136,46 @@ img {
 }
 .lang-selector i { font-size: 0.8em; margin-left: 5px; }
 
-/* ======== 1b. The "Scrolled" State (via JS) ======== */
-.minimal-header.scrolled {
-    background-color: var(--background-white);
-    color: var(--text-dark);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-.minimal-header.scrolled .btn-book {
-    color: var(--text-dark);
-    border-color: var(--accent-color); /* ✅ Warm border */
-}
-.minimal-header.scrolled .btn-book:hover {
-    background-color: var(--accent-color);
-    border-color: var(--accent-color);
-    color: var(--text-dark);
-}
-/* ✅ Makes the logo appear normally on the white bg */
-.minimal-header.scrolled .header-logo {
-    filter: none; /* Resets the filter */
+
+/* --- THE SUN ELEMENT --- */
+#the-sun {
+    position: fixed;
+    top: 50vh; /* Will be adjusted by JS, starting at middle height */
+    right: 0; /* Will be adjusted by JS, starting from the right */
+    width: var(--sun-size);
+    height: var(--sun-size);
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.6) 10%, var(--sun-initial-color) 40%, var(--sun-initial-color) 70%, rgba(255, 255, 255, 0) 100%); /* Radial gradient for glow */
+    box-shadow: 0 0 40px 10px rgba(255, 200, 0, 0.6); /* Initial glow */
+    z-index: 900; /* Below header, above content */
+    pointer-events: none; /* Allows clicks to pass through */
+    transform: translate(50%, -50%); /* Center the sun based on its position */
+    opacity: 0; /* Hidden by default, JS will make it visible */
+    transition: opacity 0.5s ease-out; /* Fade in/out */
 }
 
-/* ======== 2. Fullscreen Hero Section ======== */
-.hero-fullscreen {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-}
-.hero-bg-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 1;
-}
-/* ✅ We'll use a warmer overlay, or remove it */
-.hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* Let's try a lighter, warmer overlay */
-    background: linear-gradient(to top, rgba(0,0,0,0.3), rgba(0,0,0,0.1));
-    z-index: 2;
+/* --- Content Adaptation --- */
+.content-adapt {
+    padding-left: 20px; /* Default padding */
+    padding-right: 20px;
+    transition: padding-left 0.5s ease, padding-right 0.5s ease;
 }
 
-/* ======== 3. Discover Section ======== */
+.content-adapt.sun-offset-left {
+    padding-left: calc(var(--sun-size) + 40px); /* Add space on left */
+}
+
+.content-adapt.sun-offset-right {
+    padding-right: calc(var(--sun-size) + 40px); /* Add space on right */
+}
+
+
+/* ======== Page Content ======== */
 .page-content {
-    margin-top: 100vh; 
     background-color: var(--background-white);
     position: relative;
     z-index: 50;
+    padding-top: 80px; /* Initial buffer below header */
 }
 .discover-section {
     padding: 80px 0;
@@ -198,13 +187,13 @@ img {
     font-family: var(--font-secondary);
     font-size: 42px;
     margin-bottom: 10px;
-    color: var(--text-dark); /* ✅ Use navy */
+    color: var(--text-dark);
 }
 .discover-section .subtitle {
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 20px;
-    color: var(--accent-color-dark); /* ✅ Use warm accent */
+    color: var(--accent-color-dark);
 }
 .discover-section .description {
     font-size: 16px;
@@ -212,7 +201,7 @@ img {
     color: var(--text-light-gray);
 }
 
-/* ======== 4. Two-Column Content Grid ======== */
+/* ======== Two-Column Content Grid ======== */
 .content-grid-section {
     padding: 40px 0 80px;
 }
@@ -230,7 +219,7 @@ img {
     font-family: var(--font-secondary);
     font-size: 32px;
     margin-bottom: 20px;
-    color: var(--text-dark); /* ✅ Use navy */
+    color: var(--text-dark);
 }
 .grid-text p {
     color: var(--text-light-gray);
@@ -239,13 +228,13 @@ img {
 }
 .explore-link {
     font-weight: bold;
-    color: var(--accent-color-dark); /* ✅ Use warm accent */
+    color: var(--accent-color-dark);
     font-size: 16px;
     border-bottom: 2px solid transparent;
 }
 .explore-link:hover {
     color: var(--accent-color-dark);
-    border-bottom-color: var(--accent-color-dark); /* ✅ Add underline on hover */
+    border-bottom-color: var(--accent-color-dark);
 }
 .explore-link i {
     margin-left: 5px;
@@ -266,7 +255,7 @@ img {
     box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
 
-/* ======== 5. Newsletter Signup ======== */
+/* ======== Newsletter Signup ======== */
 .newsletter-section {
     padding: 60px 0;
     text-align: center;
@@ -280,7 +269,7 @@ img {
     font-weight: bold;
 }
 .newsletter-section a:hover {
-    color: var(--primary-color); /* ✅ Use green on hover */
+    color: var(--primary-color);
 }
 .newsletter-section a i {
     margin-left: 10px;
@@ -290,9 +279,9 @@ img {
     transform: translateX(8px);
 }
 
-/* ======== 6. Full Footer ======== */
+/* ======== Full Footer ======== */
 .main-footer {
-    background-color: var(--text-dark); /* ✅ Use navy blue for footer */
+    background-color: var(--text-dark);
     color: var(--text-light);
     padding: 80px 0 40px;
 }
@@ -306,7 +295,7 @@ img {
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 20px;
-    color: var(--accent-color); /* ✅ Use warm accent for titles */
+    color: var(--accent-color);
     text-transform: uppercase;
     letter-spacing: 1px;
 }
@@ -326,7 +315,7 @@ img {
 }
 .social-icons a:hover {
     opacity: 1;
-    color: var(--accent-color); /* ✅ Use warm accent on hover */
+    color: var(--accent-color);
     transform: scale(1.1);
 }
 .footer-bottom {
@@ -338,7 +327,6 @@ img {
 }
 
 /* ======== Responsive Adjustments ======== */
-/* (Responsive styles are the same as before) */
 @media (max-width: 900px) {
     .grid-row,
     .grid-row.row-reverse {
@@ -350,10 +338,14 @@ img {
     .footer-grid {
         grid-template-columns: 1fr 1fr;
     }
+
+    #the-sun {
+        --sun-size: 100px; /* Smaller sun on smaller screens */
+    }
 }
 @media (max-width: 600px) {
     .minimal-header .container-fluid { padding: 0 15px; }
-    .header-logo { height: 35px; } /* Smaller logo on mobile */
+    .header-logo { height: 35px; }
     .header-right-nav { gap: 10px; }
     .btn-book, .lang-selector { font-size: 14px; }
 
@@ -368,5 +360,12 @@ img {
     
     .footer-grid {
         grid-template-columns: 1fr;
+    }
+
+    /* Reset content adaptation on very small screens if it becomes too intrusive */
+    .content-adapt.sun-offset-left,
+    .content-adapt.sun-offset-right {
+        padding-left: 20px;
+        padding-right: 20px;
     }
 }
