@@ -7,103 +7,122 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 
-    <header class="main-header">
-        <div class="container">
-            <a href="index.html" class="logo">
-                <img src="/logo.png" alt="Grand Gemini Logo" class="header-logo"> <!-- Add logo here -->Grand Gemini
-            </a>
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="index.html" class="active">Home</a></li>
-                    <li><a href="rooms.html">Rooms</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="login.html" class="btn btn-primary">Login</a></li>
-                </ul>
-            </nav>
+    <header class="minimal-header">
+        <div class="container-fluid">
+            <button class="menu-toggle" aria-label="Toggle Navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="hotel-name-center">
+                <a href="index.html">Eastout</a>
+            </div>
+            <div class="header-right-nav">
+                <div class="lang-selector">
+                    EN <i class="fas fa-chevron-down"></i>
+                </div>
+                <a href="rooms.html" class="btn btn-book">Book</a>
+            </div>
         </div>
     </header>
 
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Your Tranquil Mountain Escape Awaits</h1>
-            <p>Discover peace and unparalleled views at Grand Gemini.</p>
-            
-            <form class="booking-form">
-                <div class="form-group">
-                    <label for="checkin">Check-In</label>
-                    <input type="date" id="checkin">
-                </div>
-                <div class="form-group">
-                    <label for="checkout">Check-Out</label>
-                    <input type="date" id="checkout">
-                </div>
-                <div class="form-group">
-                    <label for="guests">Guests</label>
-                    <select id="guests">
-                        <option value="1">1 Guest</option>
-                        <option value="2">2 Guests</option>
-                        <option value="3">3 Guests</option>
-                        <option value="4">4+ Guests</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary">Check Availability</button>
-            </form>
-        </div>
-    </section>
+    <section class="hero-fullscreen">
+        <div class="hero-overlay"></div>
+        <img src="https://images.unsplash.com/photo-1549880338-65ddcdfd017b?q=80&w=2070&auto=format&fit=crop" alt="Eastout Hotel Mountain View" class="hero-bg-image">
+        </section>
 
-    <section class="featured-rooms">
-        <div class="container">
-            <h2>Rooms with a View</h2>
-            <div class="room-grid">
-                
-                <div class="room-card">
-                    <img src="https://via.placeholder.com/400x300/607d8b/ffffff?text=Mountain+View+Suite" alt="Mountain View Suite">
-                    <div class="room-card-content">
-                        <h3>Mountain View Suite</h3>
-                        <p>Wake up to breathtaking vistas and serene mornings.</p>
-                        <div class="room-card-footer">
-                            <span class="price">$320 / night</span>
-                            <a href="room-details.html" class="btn btn-secondary">View Details</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="room-card">
-                    <img src="https://via.placeholder.com/400x300/4CAF50/ffffff?text=Forest+Side+Room" alt="Forest Side Room">
-                    <div class="room-card-content">
-                        <h3>Forest Side Room</h3>
-                        <p>Immerse yourself in the tranquility of the surrounding nature.</p>
-                        <div class="room-card-footer">
-                            <span class="price">$180 / night</span>
-                            <a href="room-details.html" class="btn btn-secondary">View Details</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="room-card">
-                    <img src="https://via.placeholder.com/400x300/FFC107/ffffff?text=Summit+Studio" alt="Summit Studio">
-                    <div class="room-card-content">
-                        <h3>Summit Studio</h3>
-                        <p>Cozy and comfortable, offering a perfect base for exploration.</p>
-                        <div class="room-card-footer">
-                            <span class="price">$250 / night</span>
-                            <a href="room-details.html" class="btn btn-secondary">View Details</a>
-                        </div>
-                    </div>
-                </div>
-
+    <main class="page-content">
+        <section class="discover-section">
+            <div class="container">
+                <h2>Discover Eastout Hotel</h2>
+                <p class="subtitle">Mallorca's most exciting hotel</p>
+                <p class="description">
+                    Ready for a Mediterranean escape? Sitting at the heart of the estate is the 18th-century Finca - or manor house - which has been lovingly developed into the intimate, luxurious 27-bedroom Son Bunyola Hotel.
+                </p>
             </div>
-        </div>
-    </section>
+        </section>
+
+        <section class="content-grid-section">
+            <div class="container">
+                <div class="grid-row">
+                    <div class="grid-text">
+                        <h3>Staying at Eastout</h3>
+                        <p>Choose from the hotel's 27 beautifully designed rooms, each with its own character and charm. From the truly unique Tower Suites built in 13th and 19th century turrets, to suites with private terraces boasting soaring views and luxurious rooms with the comfiest of beds, perfect for relaxing after a day exploring the island.</p>
+                        <a href="#" class="explore-link">Explore <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="grid-image">
+                        <img src="https://via.placeholder.com/600x400/3B6B59/ffffff?text=Cozy+Room+Interior" alt="Hotel Room Interior">
+                    </div>
+                </div>
+                
+                <div class="grid-row row-reverse">
+                    <div class="grid-text">
+                        <h3>Dining</h3>
+                        <p>At Eastout, savour authentic Mallorcan dishes crafted from fresh produce grown in the estate's gardens and orchards, perfectly paired with award-winning local wines carefully selected by our sommelier. Our chefs bring these vibrant flavours to life at Sa Terrassa, where Mediterranean cuisine is served alongside breathtaking sea views.</p>
+                        <a href="#" class="explore-link">Explore <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="grid-image">
+                        <img src="https://via.placeholder.com/600x400/F7C841/000000?text=Gourmet+Dining" alt="Restaurant Dining">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="newsletter-section">
+            <div class="container">
+                <a href="#">Sign up to our newsletter <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </section>
+    </main>
 
     <footer class="main-footer">
         <div class="container">
-            <p>&copy; 2025 Grand Gemini Hotel. Embrace the journey.</p>
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Reservations</h4>
+                    <ul>
+                        <li><a href="#">Book online</a></li>
+                        <li><a href="#">Enquire</a></li>
+                        <li><a href="#">Email us (Rest of the World)</a></li>
+                        <li><a href="#">Modify a reservation</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>About us</h4>
+                    <ul>
+                        <li><a href="#">Our commitment</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Trade and press</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Virgin Group</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>The legal bits</h4>
+                    <ul>
+                        <li><a href="#">Terms and conditions</a></li>
+                        <li><a href="#">Privacy policy</a></li>
+                        <li><a href="#">Cookie policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Follow us</h4>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Eastout Hotel. All Rights Reserved.</p>
+            </div>
         </div>
     </footer>
+
+    <script src="script.js"></script>
 
 </body>
 </html>
