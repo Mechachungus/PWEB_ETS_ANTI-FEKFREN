@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Initial call to set sun position at page load
     handleScroll();
-    
+
     // Add event listeners
     window.addEventListener("scroll", handleScroll);
     window.addEventListener("resize", handleScroll); // Recalculate on resize
