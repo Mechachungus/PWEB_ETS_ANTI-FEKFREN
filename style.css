@@ -18,6 +18,10 @@
     --sun-size: 150px;
     --sun-initial-color: #ffde59; /* Bright yellow */
     --sun-final-color: #ff8c00; /* Deep orange */
+
+    /* NEW: Page Background Colors */
+    --bg-initial-color: #FFFBEF; /* Very pale yellow */
+    --bg-final-color: #FFF5E6;   /* Very pale orange/peach */
 }
 
 /* ======== Global Reset & Basics ======== */
@@ -31,9 +35,11 @@ body {
     font-family: var(--font-primary);
     color: var(--text-dark);
     line-height: 1.6;
-    background-color: #fdfdfd; 
+    /* JS will control the background color */
     min-height: 200vh;
     position: relative;
+    /* Smoothly transition the background color change */
+    transition: background-color 0.1s ease-out;
 }
 
 .container {
@@ -146,18 +152,18 @@ img {
     height: var(--sun-size);
     border-radius: 50%;
     
+    /* UPDATED: Brighter, more radiant gradient */
     background: radial-gradient(
         circle at 50% 50%,
-        rgba(255, 255, 255, 0.9) 0%,
-        rgba(255, 255, 255, 0.7) 15%,
-        var(--sun-initial-color) 40%,
-        var(--sun-initial-color) 60%,
-        rgba(255, 204, 0, 0.5) 80%,
-        rgba(255, 204, 0, 0) 100%
+        rgba(255, 255, 255, 1) 0%,   /* Solid white hot core */
+        rgba(255, 255, 255, 0.8) 20%,
+        var(--sun-initial-color) 50%, /* Color starts */
+        rgba(255, 204, 0, 0) 80%  /* Fades out */
     ); 
     
-    box-shadow: 0 0 60px 20px var(--sun-initial-color),
-                0 0 100px 40px rgba(255, 200, 0, 0.5); 
+    /* UPDATED: Much larger, stronger glow */
+    box-shadow: 0 0 80px 30px var(--sun-initial-color),
+                0 0 140px 60px rgba(255, 200, 0, 0.5); 
     
     /* Sun is in the background */
     z-index: 10; 
@@ -167,6 +173,9 @@ img {
     transition: opacity 0.5s ease-out;
 }
 
+/* --- Content Adaptation --- */
+/* REMOVED all .content-adapt styles */
+
 
 /* ======== Page Content ======== */
 .page-content {
@@ -174,40 +183,66 @@ img {
     z-index: 50; /* Content is ON TOP of the sun */
     padding-top: 80px;
     
-    /* ✅ THIS IS THE FIX. The whole content area is transparent. */
+    /* The whole content area is transparent */
     background-color: transparent;
 }
 
-/* ✅ REMOVED background-color from sections */
+/* ======== Frosted Glass Content Panels ======== */
 .discover-section,
 .content-grid-section,
 .newsletter-section {
-    padding-top: 80px;
-    padding-bottom: 80px;
+    /* Semi-transparent white background */
+    background-color: rgba(255, 255, 255, 0.85);
+    
+    /* The "blur" effect */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* For Safari */
+    
+    /* A subtle border to define the edge */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    
+    /* A very subtle shadow to "lift" the glass */
+    box-shadow: 0 8px 32px 0 rgba(0, 48, 73, 0.1);
+
+    /* Spacing for the panels */
+    margin-bottom: 40px;
+    max-width: 1200px; /* Match container width */
+
+    /* Apply padding here */
+    padding: 80px 40px;
+
+    /* Need to re-apply margin: auto for discover-section */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.discover-section {
+    max-width: 700px; /* Restore this specific width */
+    padding: 80px 40px; /* Ensure it has the padding */
+    text-align: center;
 }
 
 .content-grid-section {
     padding-top: 40px;
-    padding-bottom: 80px;
+    padding-bottom: 40px; /* Reduced to account for panel padding */
 }
 
 .newsletter-section {
     padding-top: 60px;
     padding-bottom: 60px;
+    text-align: center;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
 }
 
-.discover-section {
-    text-align: center;
-    max-width: 700px;
-    margin: 0 auto;
-}
+
 .discover-section h2 {
     font-family: var(--font-secondary);
     font-size: 42px;
     margin-bottom: 10px;
     color: var(--text-dark);
-    /* ✅ Added text shadow for readability */
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* REMOVED text-shadow */
 }
 .discover-section .subtitle {
     font-size: 18px;
@@ -219,20 +254,16 @@ img {
     font-size: 16px;
     line-height: 1.7;
     color: var(--text-light-gray);
-    /* ✅ Added text shadow for readability */
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    /* REMOVED text-shadow */
 }
 
 /* ======== Two-Column Content Grid ======== */
-.content-grid-section {
-    padding: 40px 0 80px;
-}
 .grid-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 60px;
     align-items: center;
-    margin-bottom: 60px;
+    margin-bottom: 0; /* Handled by section margin */
 }
 .grid-row.row-reverse .grid-text { order: 2; }
 .grid-row.row-reverse .grid-image { order: 1; }
@@ -242,15 +273,13 @@ img {
     font-size: 32px;
     margin-bottom: 20px;
     color: var(--text-dark);
-    /* ✅ Added text shadow for readability */
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* REMOVED text-shadow */
 }
 .grid-text p {
     color: var(--text-light-gray);
     margin-bottom: 25px;
     line-height: 1.7;
-    /* ✅ Added text shadow for readability */
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    /* REMOVED text-shadow */
 }
 .explore-link {
     font-weight: bold;
@@ -282,11 +311,6 @@ img {
 }
 
 /* ======== Newsletter Signup ======== */
-.newsletter-section {
-    text-align: center;
-    border-top: 1px solid var(--border-color);
-    border-bottom: 1px solid var(--border-color);
-}
 .newsletter-section a {
     font-family: var(--font-secondary);
     font-size: 32px;
@@ -369,6 +393,12 @@ img {
     #the-sun {
         --sun-size: 100px;
     }
+    
+    .discover-section,
+    .content-grid-section,
+    .newsletter-section {
+        padding: 40px 20px; /* Less padding on smaller screens */
+    }
 }
 @media (max-width: 600px) {
     .minimal-header .container-fluid { padding: 0 15px; }
@@ -376,14 +406,19 @@ img {
     .header-right-nav { gap: 10px; }
     .btn-book, .lang-selector { font-size: 14px; }
 
-    .discover-section { padding-top: 60px; padding-bottom: 60px; }
+    .discover-section,
+    .content-grid-section,
+    .newsletter-section {
+        padding: 30px 15px; /* Even less padding */
+        margin-bottom: 20px;
+        border-radius: 8px;
+    }
+
     .discover-section h2 { font-size: 32px; }
 
-    .content-grid-section { padding-top: 20px; padding-bottom: 40px; }
-    .grid-row { gap: 30px; margin-bottom: 40px; }
+    .grid-row { gap: 30px; }
     .grid-text h3 { font-size: 28px; }
 
-    .newsletter-section { padding-top: 60px; padding-bottom: 60px; }
     .newsletter-section a { font-size: 24px; }
     
     .footer-grid {

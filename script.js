@@ -3,18 +3,23 @@ document.addEventListener("DOMContentLoaded", function() {
     const theSun = document.getElementById("the-sun");
 
     // Define the sun's journey parameters
-    const SUN_END_SCROLL_FACTOR = 0.9; // Sun ends journey at 90% of scrollable height
+    const SUN_END_SCROLL_FACTOR = 0.9; 
     
-    // START/END positions are INSIDE the viewport
-    const SUN_START_X_VW = 80; // Start at 95% from left (bottom-right)
-    const SUN_END_X_VW = -5;   // End at 5% from left (bottom-left)
+    // ✅ Using your new values
+    const SUN_START_X_VW = 80; // Start at 80% from left
+    const SUN_END_X_VW = -5;   // End at -5% from left (off-screen)
     
-    const SUN_START_Y_VH = 80; // Start/End at 80vh from top (near bottom)
-    const SUN_PEAK_Y_VH = 20;  // Peak at 20vh from top (near top)
+    const SUN_START_Y_VH = 80; 
+    const SUN_PEAK_Y_VH = 20;  
 
     // Color conversion helpers
     const sunInitialColorRgb = hexToRgb(getComputedStyle(document.documentElement).getPropertyValue('--sun-initial-color').trim());
     const sunFinalColorRgb = hexToRgb(getComputedStyle(document.documentElement).getPropertyValue('--sun-final-color').trim());
+
+    // ✅ NEW: Get the Page Background colors
+    const bgInitialColorRgb = hexToRgb(getComputedStyle(document.documentElement).getPropertyValue('--bg-initial-color').trim());
+    const bgFinalColorRgb = hexToRgb(getComputedStyle(document.documentElement).getPropertyValue('--bg-final-color').trim());
+
 
     function interpolateColor(color1, color2, factor) {
         const result = color1.slice();
@@ -37,23 +42,18 @@ document.addEventListener("DOMContentLoaded", function() {
         const viewportWidth = window.innerWidth;
         const viewportHeight = window.innerHeight;
 
-        // Header scroll logic
         if (scrollY > 10) {
             header.classList.add("scrolled");
         } else {
             header.classList.remove("scrolled");
         }
 
-        // --- Sun Movement Logic ---
-
         // Calculate scroll progress
         let scrollProgress = scrollY / sunEndScroll;
         
         // CRITICAL: Clamp progress between 0 and 1.
-        // This stops the sun from scrolling off-screen when you scroll past the "end".
         scrollProgress = Math.min(1, Math.max(0, scrollProgress)); 
         
-        // Sun is ALWAYS visible
         theSun.style.opacity = 1; 
 
         // 1. Calculate X position (East to West)
@@ -65,31 +65,32 @@ document.addEventListener("DOMContentLoaded", function() {
         const peakY = viewportHeight * (SUN_PEAK_Y_VH / 100);
         const startY = viewportHeight * (SUN_START_Y_VH / 100);
         const arcAmplitude = startY - peakY;
-        
-        // Parabolic factor: ( -4 * (x-0.5)^2 + 1 ) gives a 0 -> 1 -> 0 curve
         const parabolicFactor = -4 * Math.pow(scrollProgress - 0.5, 2) + 1;
-        
-        // Apply the factor to the amplitude
         const sunY = startY - (parabolicFactor * arcAmplitude);
 
         theSun.style.left = `${sunX}px`;
         theSun.style.top = `${sunY}px`;
 
-        // 3. Interpolate sun color
+        // 3. Interpolate sun orb color
         const currentColor = interpolateColor(sunInitialColorRgb, sunFinalColorRgb, scrollProgress);
         
-        // Update gradient and shadow for the "shine"
-        const currentGlow = currentColor.replace('rgb', 'rgba').replace(')', ', 0.5)');
-        theSun.style.background = `radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 15%, ${currentColor} 40%, ${currentColor} 60%, ${currentGlow} 80%, rgba(255, 204, 0, 0) 100%)`;
-        theSun.style.boxShadow = `0 0 60px 20px ${currentColor}, 0 0 100px 40px ${currentGlow}`;
+        // 4. ✅ NEW: Interpolate PAGE BACKGROUND color
+        const currentBgColor = interpolateColor(bgInitialColorRgb, bgFinalColorRgb, scrollProgress);
+        
+        // 5. ✅ NEW: Apply the new background color to the whole page
+        document.body.style.backgroundColor = currentBgColor;
 
-        // 4. REMOVED all logic for hiding the sun at the footer.
+        // 6. Update gradient and shadow for the sun orb
+        const currentGlow = currentColor.replace('rgb', 'rgba').replace(')', ', 0.5)');
+        
+        // ✅ UPDATED: Brighter gradient and shadow
+        theSun.style.background = `radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.8) 20%, ${currentColor} 50%, ${currentGlow} 80%, rgba(255, 204, 0, 0) 100%)`;
+        theSun.style.boxShadow = `0 0 80px 30px ${currentColor}, 0 0 140px 60px ${currentGlow.replace('0.5', '0.4')}`;
     }
 
     // Initial call to set sun position at page load
     handleScroll();
-
-    // Add event listeners
+    
     window.addEventListener("scroll", handleScroll);
-    window.addEventListener("resize", handleScroll); // Recalculate on resize
+    window.addEventListener("resize", handleScroll);
 });
