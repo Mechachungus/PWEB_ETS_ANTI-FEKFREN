@@ -4,8 +4,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Define the sun's journey parameters
     const SUN_END_SCROLL_FACTOR = 0.9; // Sun ends journey at 90% of scrollable height
-    const SUN_START_Y_VH = 80; // Start at 80vh from top (near bottom)
-    const SUN_PEAK_Y_VH = 20; // Peak at 20vh from top (near top)
+    
+    // START/END positions are INSIDE the viewport
+    const SUN_START_X_VW = 95; // Start at 95% from left (bottom-right)
+    const SUN_END_X_VW = 5;   // End at 5% from left (bottom-left)
+    
+    const SUN_START_Y_VH = 80; // Start/End at 80vh from top (near bottom)
+    const SUN_PEAK_Y_VH = 20;  // Peak at 20vh from top (near top)
 
     // Color conversion helpers
     const sunInitialColorRgb = hexToRgb(getComputedStyle(document.documentElement).getPropertyValue('--sun-initial-color').trim());
@@ -41,19 +46,20 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // --- Sun Movement Logic ---
 
-        // Calculate scroll progress, but allow it to go beyond 1 (100%)
-        // This lets the sun continue moving off-screen left if user keeps scrolling
+        // Calculate scroll progress
         let scrollProgress = scrollY / sunEndScroll;
         
-        // Clamp progress between 0 and a max (e.g., 1.1) to ensure it finishes its path
-        scrollProgress = Math.min(1.1, Math.max(0, scrollProgress)); 
+        // CRITICAL: Clamp progress between 0 and 1.
+        // This stops the sun from scrolling off-screen when you scroll past the "end".
+        scrollProgress = Math.min(1, Math.max(0, scrollProgress)); 
         
-        // Sun is always visible
+        // Sun is ALWAYS visible
         theSun.style.opacity = 1; 
 
         // 1. Calculate X position (East to West)
-        // Moves from 110% (off-screen right) to -10% (off-screen left)
-        const sunX = viewportWidth * (1.1 - (scrollProgress * 1.2));
+        const sunStartX = viewportWidth * (SUN_START_X_VW / 100);
+        const sunEndX = viewportWidth * (SUN_END_X_VW / 100);
+        const sunX = sunStartX - (scrollProgress * (sunStartX - sunEndX));
         
         // 2. Calculate Y position (Parabolic Arc)
         const peakY = viewportHeight * (SUN_PEAK_Y_VH / 100);
@@ -70,16 +76,14 @@ document.addEventListener("DOMContentLoaded", function() {
         theSun.style.top = `${sunY}px`;
 
         // 3. Interpolate sun color
-        // We'll cap the color change at 100% progress
-        const colorProgress = Math.min(1, scrollProgress);
-        const currentColor = interpolateColor(sunInitialColorRgb, sunFinalColorRgb, colorProgress);
+        const currentColor = interpolateColor(sunInitialColorRgb, sunFinalColorRgb, scrollProgress);
         
         // Update gradient and shadow for the "shine"
         const currentGlow = currentColor.replace('rgb', 'rgba').replace(')', ', 0.5)');
         theSun.style.background = `radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 15%, ${currentColor} 40%, ${currentColor} 60%, ${currentGlow} 80%, rgba(255, 204, 0, 0) 100%)`;
         theSun.style.boxShadow = `0 0 60px 20px ${currentColor}, 0 0 100px 40px ${currentGlow}`;
 
-        // 4. REMOVED all logic for hiding the sun. It's now always fixed.
+        // 4. REMOVED all logic for hiding the sun at the footer.
     }
 
     // Initial call to set sun position at page load
