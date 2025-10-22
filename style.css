@@ -219,7 +219,7 @@ img {
     font-size: 16px;
     line-height: 1.7;
     color: var(--text-light-gray);
-    /* ✅ Added text shadow for readability */
+    /* Added text shadow for readability */
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
