@@ -6,8 +6,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const SUN_END_SCROLL_FACTOR = 0.9; // Sun ends journey at 90% of scrollable height
     
     // START/END positions are INSIDE the viewport
-    const SUN_START_X_VW = 95; // Start at 95% from left (bottom-right)
-    const SUN_END_X_VW = 5;   // End at 5% from left (bottom-left)
+    const SUN_START_X_VW = 80; // Start at 95% from left (bottom-right)
+    const SUN_END_X_VW = 0;   // End at 5% from left (bottom-left)
     
     const SUN_START_Y_VH = 80; // Start/End at 80vh from top (near bottom)
     const SUN_PEAK_Y_VH = 20;  // Peak at 20vh from top (near top)
