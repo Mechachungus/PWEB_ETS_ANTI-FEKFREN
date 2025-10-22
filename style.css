@@ -231,7 +231,7 @@ img {
 
 /* ======== Two-Column Content Grid ======== */
 .content-grid-section {
-    /* (styles remain the same) */
+    padding: 40px 0 80px;
 }
 .grid-row {
     display: grid;
