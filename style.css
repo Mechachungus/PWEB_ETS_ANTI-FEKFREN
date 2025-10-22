@@ -1,0 +1,253 @@
+/* ======== CSS Variables (Your Theme) ======== */
+:root {
+    --primary-color: #007bff; /* A nice blue */
+    --primary-color-dark: #0056b3;
+    --secondary-color: #6c757d; /* A neutral gray */
+    --light-color: #f8f9fa;
+    --dark-color: #343a40;
+    --text-color: #333;
+    --font-primary: 'Montserrat', sans-serif;
+    --font-secondary: 'Playfair Display', serif;
+}
+
+/* ======== Global Reset & Basics ======== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-primary);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+a {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+/* ======== Buttons ======== */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-color-dark);
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    color: #fff;
+}
+
+.btn-secondary:hover {
+    background-color: var(--dark-color);
+}
+
+
+/* ======== Header & Navigation ======== */
+.main-header {
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.main-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.logo {
+    font-family: var(--font-secondary);
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--dark-color);
+}
+
+.main-nav ul {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+}
+
+.main-nav ul li {
+    margin-left: 20px;
+}
+
+.main-nav ul li a {
+    font-weight: bold;
+    color: var(--secondary-color);
+    padding-bottom: 5px;
+}
+
+.main-nav ul li a:hover,
+.main-nav ul li a.active {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.main-nav .btn-primary {
+    margin-left: 10px;
+    padding: 8px 16px;
+}
+
+
+/* ======== Hero Section ======== */
+.hero {
+    height: 70vh;
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://via.placeholder.com/1920x1080.png?text=Beautiful+Hotel+Lobby');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+}
+
+.hero-content h1 {
+    font-family: var(--font-secondary);
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.hero-content p {
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+/* ======== Booking Form ======== */
+.booking-form {
+    display: flex;
+    flex-wrap: wrap; /* Allows wrapping on small screens */
+    justify-content: center;
+    align-items: flex-end;
+    gap: 15px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.booking-form .form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.booking-form label {
+    font-size: 14px;
+    color: var(--text-color);
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.booking-form input,
+.booking-form select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: var(--font-primary);
+}
+
+.booking-form .btn {
+    height: 42px; /* Aligns with form inputs */
+}
+
+/* ======== Featured Rooms Section ======== */
+.featured-rooms {
+    padding: 60px 0;
+}
+
+.featured-rooms h2 {
+    font-family: var(--font-secondary);
+    font-size: 36px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.room-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.room-card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.room-card:hover {
+    transform: translateY(-5px);
+}
+
+.room-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.room-card-content {
+    padding: 20px;
+}
+
+.room-card-content h3 {
+    font-family: var(--font-secondary);
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.room-card-content p {
+    margin-bottom: 20px;
+    color: var(--secondary-color);
+}
+
+.room-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+}
+
+.room-card-footer .price {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+/* ======== Footer ======== */
+.main-footer {
+    background: var(--dark-color);
+    color: var(--light-color);
+    padding: 30px 0;
+    text-align: center;
+    margin-top: 40px;
+}
