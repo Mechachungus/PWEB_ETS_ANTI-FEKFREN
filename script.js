@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
+
     const header = document.querySelector(".minimal-header");
     const theSun = document.getElementById("the-sun");
     
@@ -56,13 +57,34 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         
         // Re-run scroll logic to update colors instantly
-        handleScroll(); 
+        if (document.getElementById('the-sun')) {
+        handleScroll();
+    }
     });
 
 
     // --- ✅ 3. UPDATED Main Scroll event handler ---
     function handleScroll() {
+            // ✅ ADD THESE LINES AT THE TOP
+        const theSun = document.getElementById("the-sun");
+        const theMoon = document.getElementById("the-moon");
+        
+        // Header scroll logic (this is safe)
+        const header = document.querySelector(".minimal-header");
         const scrollY = window.scrollY;
+        if (scrollY > 10) {
+            header.classList.add("scrolled");
+        } else {
+            header.classList.remove("scrolled");
+        }
+
+        // ✅ If no sun/moon, exit the function now.
+        if (!theSun || !theMoon) {
+            return; 
+        }
+
+        // --- Orb Movement Logic ---
+        // (This code will now only run on pages that HAVE the sun/moon)
         const totalScrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
         const sunEndScroll = totalScrollableHeight * SUN_END_SCROLL_FACTOR;
         const viewportWidth = window.innerWidth;
@@ -132,7 +154,9 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Initial call to set orb position at page load
-    handleScroll();
+    if (document.getElementById('the-sun')) {
+        handleScroll();
+    }
     
     // Add event listeners
     window.addEventListener("scroll", handleScroll);
@@ -157,7 +181,7 @@ document.addEventListener("DOMContentLoaded", function() {
         sideMenu.classList.remove('open');
         menuOverlay.classList.remove('open');
     }
-    
+
     // --- ✅ 5. GLOBAL AUTH CHECK ---
     // This runs on every page load to check login status
     
@@ -176,7 +200,9 @@ document.addEventListener("DOMContentLoaded", function() {
     
     
     // Initial call to set orb position at page load
-    handleScroll();
+    if (document.getElementById('the-sun')) {
+        handleScroll();
+    }
     
     // Add event listeners
     window.addEventListener("scroll", handleScroll);
