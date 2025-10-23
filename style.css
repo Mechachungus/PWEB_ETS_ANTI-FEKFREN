@@ -1026,3 +1026,64 @@ body.dark-mode .auth-panel input[type="password"] {
         font-size: 32px;
     }
 }
+/* ======== Profile Page Details ======== */
+
+.profile-details {
+    /* Uses styles from booking-summary but with less padding */
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 20px 30px;
+    margin-bottom: 30px;
+    text-align: left; /* Override parent's center-align */
+}
+
+.profile-details h3 {
+    font-family: var(--font-secondary);
+    font-size: 24px;
+    color: var(--text-dark);
+    margin-bottom: 20px;
+    text-align: center; /* Center the 'Your Details' heading */
+}
+
+.profile-details label {
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--text-light-gray);
+    opacity: 0.7;
+    margin-bottom: 2px;
+}
+
+.profile-details input[readonly] {
+    /* Re-use form styles but make them look read-only */
+    width: 100%;
+    padding: 10px 0px; /* Less padding */
+    border: none;
+    border-bottom: 1px solid var(--border-color);
+    font-family: var(--font-primary);
+    font-size: 16px;
+    background: transparent;
+    color: var(--text-dark);
+    cursor: default;
+    margin-bottom: 15px; /* from form-group */
+}
+
+/* Dark Mode for Profile Details */
+body.dark-mode .profile-details {
+    background-color: rgba(10, 10, 10, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .profile-details h3 {
+    color: var(--text-light);
+}
+
+body.dark-mode .profile-details label {
+    color: #ccc;
+}
+
+body.dark-mode .profile-details input[readonly] {
+    background: transparent;
+    color: #eee;
+    border-bottom-color: #444;
+}

@@ -95,6 +95,14 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="account-type">Account Type</label>
+                    <select id="account-type" name="account-type" class="summary-select" style="width: 100%; max-width: 100%;">
+                        <option value="customer" selected>Customer</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" required>
                 </div>
@@ -113,41 +121,7 @@
     <footer class="main-footer" id="main-footer">
         <div class="container">
             <div class="footer-grid">
-                <div class="footer-column">
-                    <h4>Reservations</h4>
-                    <ul>
-                        <li><a href="#">Book online</a></li>
-                        <li><a href="#">Enquire</a></li>
-                        <li><a href="#">Email us (Rest of the World)</a></li>
-                        <li><a href="#">Modify a reservation</a></li>
-                    </ul>
                 </div>
-                <div class="footer-column">
-                    <h4>About us</h4>
-                    <ul>
-                        <li><a href="#">Our commitment</a></li>
-                        <li><a href="#">FAQs</a></li>
-                        <li><a href="#">Trade and press</a></li>
-                        <li><a href="#">Careers</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h4>The legal bits</h4>
-                    <ul>
-                        <li><a href="#">Terms and conditions</a></li>
-                        <li><a href="#">Privacy policy</a></li>
-                        <li><a href="#">Cookie policy</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h4>Follow us</h4>
-                    <div class="social-icons">
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
             <div class="footer-bottom">
                 <p>&copy; 2025 East Out Hotel. All Rights Reserved.</p>
             </div>
@@ -163,21 +137,35 @@
             const password = document.getElementById('password').value;
             const rePassword = document.getElementById('re-password').value;
             
-            // --- 1. Check if passwords match ---
+            // 1. Check if passwords match
             if (password !== rePassword) {
                 alert("Passwords do not match. Please try again.");
                 return; // Stop the script
             }
             
-            // --- 2. If they match, proceed with simulation ---
-            const fullName = document.getElementById('full-name').value;
-            const username = document.getElementById('username').value;
+            // 2. Get all form data
+            const user = {
+                username: document.getElementById('username').value,
+                fullName: document.getElementById('full-name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                gender: document.getElementById('gender').value,
+                birthdate: document.getElementById('birthdate').value,
+                accountType: document.getElementById('account-type').value // <-- New value added
+            };
             
+            // 4. Save the user object (as a string) and login status
             localStorage.setItem('isLoggedIn', 'true');
-            // Store username, fallback to full name
-            localStorage.setItem('userName', username || fullName || 'Guest'); 
+            localStorage.setItem('user', JSON.stringify(user));
             
-            window.location.href = 'profile.html';
+            // 5. Redirect (with admin simulation)
+            if (user.accountType === 'admin') {
+                // In a real app, this would go to an admin dashboard
+                alert("Admin registration simulated! Redirecting to profile.");
+                window.location.href = 'profile.html';
+            } else {
+                window.location.href = 'profile.html';
+            }
         });
     </script>
 </body>

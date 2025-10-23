@@ -118,10 +118,21 @@
         document.getElementById('login-form').addEventListener('submit', function(e) {
             e.preventDefault(); 
             
-            // SIMULATION
             const username = document.getElementById('username').value;
+            
+            // SIMULATION: Create a fake user object for the "existing" user
+            const user = {
+                username: username,
+                fullName: (username === 'admin') ? 'Admin User' : 'Existing User',
+                email: username + '@hotel.com',
+                phone: '555-0123',
+                gender: 'other',
+                birthdate: '1990-01-01'
+            };
+
+            // Save the fake user object and login status
             localStorage.setItem('isLoggedIn', 'true');
-            localStorage.setItem('userName', username || 'Guest');
+            localStorage.setItem('user', JSON.stringify(user));
             
             window.location.href = 'profile.html';
         });
