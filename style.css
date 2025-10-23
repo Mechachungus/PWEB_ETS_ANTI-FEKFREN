@@ -924,7 +924,7 @@ body.dark-mode .booking-summary .summary-divider {
 }
 /* ======== Header Profile Icon ======== */
 .header-icon {
-    font-size: 48px; /* Adjust size */
+    font-size: 128px; /* Adjust size */
     color: var(--text-dark);
     text-decoration: none;
     line-height: 1;
