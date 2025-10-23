@@ -945,6 +945,315 @@ body.dark-mode .header-icon i { /* <-- Target the <i> in dark mode */
 body.dark-mode .header-icon:hover i { /* <-- Target the <i> in dark mode on hover */
     color: var(--accent-color);
 }
+/* ======== Profile Page Details ======== */
+.profile-details {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 20px 30px;
+    margin-bottom: 30px;
+    text-align: left;
+}
+.profile-details h3 {
+    font-family: var(--font-secondary);
+    font-size: 24px;
+    color: var(--text-dark);
+    margin-bottom: 20px;
+    text-align: center;
+}
+.profile-details label {
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--text-light-gray);
+    opacity: 0.7;
+    margin-bottom: 2px;
+    display: block; /* Ensure label is on its own line */
+}
+.profile-details input[readonly] {
+    width: 100%;
+    padding: 10px 0px;
+    border: none;
+    border-bottom: 1px solid var(--border-color);
+    font-family: var(--font-primary);
+    font-size: 16px;
+    background: transparent;
+    color: var(--text-dark);
+    cursor: default;
+}
+/* This removes the margin from the form-group div */
+.profile-details .form-group {
+    margin-bottom: 15px;
+}
+body.dark-mode .profile-details {
+    background-color: rgba(10, 10, 10, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+body.dark-mode .profile-details h3 {
+    color: var(--text-light);
+}
+body.dark-mode .profile-details label {
+    color: #ccc;
+}
+body.dark-mode .profile-details input[readonly] {
+    background: transparent;
+    color: #eee;
+    border-bottom-color: #444;
+}
+
+/* ======== ✅ NEW: Profile Tabs ======== */
+.tabs {
+    display: flex;
+    border-bottom: 2px solid var(--border-color);
+    margin-bottom: 20px;
+}
+.tab-link {
+    font-family: var(--font-primary);
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--text-light-gray);
+    background: none;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px; /* Aligns with the container border */
+    transition: all 0.3s ease;
+}
+.tab-link.active,
+.tab-link:hover {
+    color: var(--text-dark);
+    border-bottom-color: var(--primary-color);
+}
+.tab-content {
+    display: none; /* Hide all tabs by default */
+}
+.tab-content.active {
+    display: block; /* Show only the active one */
+}
+body.dark-mode .tabs {
+    border-bottom-color: #444;
+}
+body.dark-mode .tab-link {
+    color: #aaa;
+}
+body.dark-mode .tab-link.active,
+body.dark-mode .tab-link:hover {
+    color: var(--text-light);
+    border-bottom-color: var(--accent-color);
+}
+
+/* ======== ✅ NEW: Order History ======== */
+.order-history-list h3 {
+    font-family: var(--font-secondary);
+    font-size: 24px;
+    color: var(--text-dark);
+    margin-bottom: 20px;
+    text-align: center;
+}
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.order-item-details {
+    display: flex;
+    flex-direction: column;
+}
+.order-item-details strong {
+    font-size: 18px;
+    color: var(--text-dark);
+    font-weight: 700;
+}
+.order-item-details span {
+    font-size: 14px;
+    color: var(--text-light-gray);
+}
+.order-item-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--text-dark);
+}
+.btn-review {
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+.btn-review:hover {
+    text-decoration: underline;
+}
+.review-submitted {
+    font-size: 14px;
+    color: var(--text-light-gray);
+    font-style: italic;
+}
+.review-submitted i {
+    color: var(--primary-color);
+    margin-right: 5px;
+}
+body.dark-mode .order-history-list h3 {
+    color: var(--text-light);
+}
+body.dark-mode .order-item {
+    background-color: rgba(10, 10, 10, 0.3);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+body.dark-mode .order-item-details strong,
+body.dark-mode .order-item-price {
+    color: var(--text-light);
+}
+body.dark-mode .order-item-details span,
+body.dark-mode .review-submitted {
+    color: #ccc;
+}
+body.dark-mode .btn-review {
+    color: var(--accent-color);
+}
+body.dark-mode .review-submitted i {
+    color: var(--accent-color);
+}
+
+/* ======== ✅ NEW: Review Page (star rating) ======== */
+.star-rating {
+    font-size: 28px;
+    color: #ccc;
+    cursor: pointer;
+}
+.star-rating i {
+    margin-right: 5px;
+    transition: color 0.2s ease;
+}
+.star-rating i.fas.filled {
+    color: var(--accent-color);
+}
+/* Style textareas like inputs */
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-family: var(--font-primary);
+    font-size: 16px;
+    background: #fff;
+    color: var(--text-dark);
+    resize: vertical; /* Allow vertical resize only */
+}
+body.dark-mode textarea {
+    background: #333;
+    border-color: #555;
+    color: var(--text-light);
+}
+
+/* ======== ✅ NEW: Membership Page ======== */
+.membership-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+.membership-card {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+.membership-card h3 {
+    font-family: var(--font-secondary);
+    font-size: 28px;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+}
+.membership-discount {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+.membership-card p {
+    color: var(--text-light-gray);
+    margin-bottom: 25px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+.membership-card .btn-book {
+    background-color: var(--accent-color);
+    color: var(--text-dark);
+    border-color: var(--accent-color);
+}
+.membership-card .btn-book:hover {
+    background-color: var(--accent-color-dark);
+    border-color: var(--accent-color-dark);
+}
+/* Active/Recommended tier */
+.membership-card.active {
+    background-color: rgba(255, 255, 255, 0.8);
+    transform: scale(1.05);
+    box-shadow: 0 8px 32px 0 rgba(0, 48, 73, 0.1);
+}
+.membership-card.active .btn-book {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    border-color: var(--primary-color);
+}
+
+body.dark-mode .membership-card {
+    background-color: rgba(10, 10, 10, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+body.dark-mode .membership-card.active {
+    background-color: rgba(10, 10, 10, 0.8);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+}
+body.dark-mode .membership-card h3 {
+    color: var(--text-light);
+}
+body.dark-mode .membership-discount {
+    color: var(--accent-color);
+}
+body.dark-mode .membership-card p {
+    color: #eee;
+}
+
+/* ======== ✅ NEW: Language Selector Button ======== */
+.lang-selector {
+    background: none;
+    border: 1px solid transparent;
+    color: var(--text-dark);
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    opacity: 0.8;
+    padding: 5px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+.lang-selector:hover {
+    opacity: 1;
+    background-color: rgba(0,0,0,0.05);
+}
+body.dark-mode .lang-selector {
+    color: var(--text-light);
+}
+body.dark-mode .lang-selector:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+
+/* ... Your existing @media queries ... */
+
+/* Make sure to add the new layouts to your responsive rules */
+@media (min-width: 900px) {
+    .membership-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
 
 /* ======== Auth Forms (Login/Register) ======== */
 .auth-panel {

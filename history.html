@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - East Out Hotel</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="page-no-scroll">
+
+    <!-- Full Header -->
+    <div id="menu-overlay"></div>
+    <nav id="side-menu">
+        <button id="menu-close" aria-label="Close menu"><i class="fas fa-times"></i></button>
+        <div class="side-menu-content">
+            <a href="index.html">
+                <img src="/logohd.png" alt="East Out Hotel Logo" class="side-menu-logo">
+            </a>
+            <ul class="side-menu-nav">
+                <li><a href="index.html" data-key="nav_home">Home</a></li>
+                <li><a href="rooms.html" data-key="nav_rooms">Rooms</a></li>
+                <li><a href="membership.html" data-key="nav_membership">Membership</a></li>
+                <li><a href="#" data-key="nav_gallery">Gallery</a></li>
+                <li><a href="#" data-key="nav_contact">Contact</a></li>
+            </ul>
+            <a href="booking.html" class="btn btn-book" data-key="book_now">Book Now</a>
+        </div>
+    </nav>
+    <header class="minimal-header">
+        <div class="container-fluid">
+            <button class="menu-toggle" aria-label="Toggle Navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="hotel-name-center">
+                <a href="index.html">
+                    <img src="/logohd.png" alt="East Out Hotel Logo" class="header-logo">
+                </a>
+            </div>
+            <div class="header-right-nav">
+                <button class="lang-selector" id="lang-toggle-btn">EN</button>
+                <button id="dark-mode-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i> <i class="fas fa-sun"></i>
+                </button>
+                <a href="login.html" id="profile-icon-link" class="header-icon" aria-label="Login or Profile">
+                    <i class="fas fa-user-circle"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+    <!-- End of Header -->
+    
+    <main class="page-content">
+        <section class="discover-section auth-panel" style="max-width: 800px;">
+            <h2 class="room-page-title" id="welcome-heading">Welcome!</h2>
+            
+            <!-- ✅ NEW: TABS -->
+            <div class="tabs">
+                <button class="tab-link active" data-tab="details" data-key="profile_tab_details">My Details</button>
+                <button class="tab-link" data-tab="bookings" data-key="profile_tab_bookings">My Bookings</button>
+            </div>
+
+            <!-- Tab Content 1: Profile Details -->
+            <div id="details" class="tab-content active">
+                <div class="profile-details">
+                    <h3 data-key="profile_your_details">Your Details</h3>
+                    <div class="form-group">
+                        <label data-key="profile_username">Username</label>
+                        <input type="text" id="profile-username" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label data-key="profile_full_name">Full Name</label>
+                        <input type="text" id="profile-fullName" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label data-key="profile_email">Email Address</label>
+                        <input type="email" id="profile-email" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label data-key="profile_phone">Phone Number</label>
+                        <input type="tel" id="profile-phone" readonly>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label data-key="profile_gender">Gender</label>
+                            <input type="text" id="profile-gender" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label data-key="profile_birthdate">Birthdate</label>
+                            <input type="text" id="profile-birthdate" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content 2: Order History -->
+            <div id="bookings" class="tab-content">
+                <div class="order-history-list">
+                    <h3 data-key="profile_order_history">Order History</h3>
+                    
+                    <!-- Upcoming Booking Example -->
+                    <div class="order-item">
+                        <div class="order-item-details">
+                            <strong data-key="room_luxury">Luxury Villa</strong>
+                            <span data-key="profile_upcoming">Upcoming: Nov 15, 2025 - Nov 18, 2025</span>
+                        </div>
+                        <div class="order-item-price">$2100.00</div>
+                    </div>
+                    
+                    <!-- Past Booking Example -->
+                    <div class="order-item">
+                        <div class="order-item-details">
+                            <strong data-key="room_deluxe">Deluxe Room</strong>
+                            <span data-key="profile_completed">Completed: Sep 10, 2025 - Sep 12, 2025</span>
+                        </div>
+                        <div class="order-item-actions">
+                            <!-- This transaction ID would be dynamic -->
+                            <a href="review.html?transaction=123" class="btn-review" data-key="profile_leave_review">Leave a Review</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Past Booking Example 2 -->
+                    <div class="order-item">
+                        <div class="order-item-details">
+                            <strong data-key="room_executive">Executive Suite</strong>
+                            <span data-key="profile_completed">Completed: Jul 01, 2025 - Jul 05, 2025</span>
+                        </div>
+                        <div class="order-item-actions">
+                            <span class="review-submitted" data-key="profile_review_submitted"><i class="fas fa-check"></i> Review Submitted</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <button id="logout-button" class="btn btn-book btn-full-width" data-key="profile_logout">Logout</button>
+        </section>
+    </main>
+    
+    <!-- Full Footer -->
+    <footer class="main-footer" id="main-footer">
+        <!-- ... Paste your full footer HTML here ... -->
+    </footer>
+
+    <script src="translations.js"></script>
+    <script src="script.js"></script>
+    
+    <!-- Updated Page-specific script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 1. Check if user is logged in
+            if (localStorage.getItem('isLoggedIn') !== 'true') {
+                window.location.href = 'login.html';
+                return; 
+            }
+            
+            // 2. Get user object from localStorage
+            const userString = localStorage.getItem('user');
+            if (!userString) {
+                alert('Session error. Please log in again.');
+                localStorage.removeItem('isLoggedIn');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // 3. Parse the data
+            const user = JSON.parse(userString);
+            
+            // 4. Personalize the page
+            document.getElementById('welcome-heading').textContent = `Welcome, ${user.username || 'User'}!`;
+            
+            // 5. Populate the profile fields
+            document.getElementById('profile-username').value = user.username || '';
+            document.getElementById('profile-fullName').value = user.fullName || '';
+            document.getElementById('profile-email').value = user.email || '';
+            document.getElementById('profile-phone').value = user.phone || '';
+            document.getElementById('profile-gender').value = user.gender || '';
+            document.getElementById('profile-birthdate').value = user.birthdate || '';
+
+            // 6. Logout Button
+            document.getElementById('logout-button').addEventListener('click', function() {
+                localStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('user'); 
+                localStorage.removeItem('language'); // Clear language pref on logout
+                window.location.href = 'index.html';
+            });
+
+            // 7. Tab Functionality
+            const tabLinks = document.querySelectorAll('.tab-link');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    const tabId = link.getAttribute('data-tab');
+
+                    // Deactivate all
+                    tabLinks.forEach(item => item.classList.remove('active'));
+                    tabContents.forEach(item => item.classList.remove('active'));
+
+                    // Activate clicked
+                    link.classList.add('active');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -210,4 +210,43 @@ document.addEventListener("DOMContentLoaded", function() {
     menuToggle.addEventListener('click', openMenu);
     menuClose.addEventListener('click', closeMenu);
     menuOverlay.addEventListener('click', closeMenu);
+
+    // --- 6. ✅ NEW: Translation Logic ---
+    const langToggleButton = document.getElementById('lang-toggle-btn');
+    
+    // Function to set the language
+    function setLanguage(lang) {
+        if (!translations[lang]) return; // Exit if lang not found
+        
+        // Find all elements with a data-key
+        document.querySelectorAll('[data-key]').forEach(element => {
+            const key = element.getAttribute('data-key');
+            if (translations[lang][key]) {
+                // Check for placeholder keys
+                if (key.includes('placeholder_')) {
+                    element.placeholder = translations[lang][key];
+                } else {
+                    element.textContent = translations[lang][key];
+                }
+            }
+        });
+        
+        // Update the button text
+        langToggleButton.textContent = lang.toUpperCase();
+        // Save choice
+        localStorage.setItem('language', lang);
+    }
+
+    // Add click event for the toggle button
+    if (langToggleButton) {
+        langToggleButton.addEventListener('click', () => {
+            const currentLang = localStorage.getItem('language') || 'en';
+            const newLang = currentLang === 'en' ? 'id' : 'en';
+            setLanguage(newLang);
+        });
+    }
+
+    // On page load, check for saved language
+    const savedLang = localStorage.getItem('language') || 'en';
+    setLanguage(savedLang);
 });

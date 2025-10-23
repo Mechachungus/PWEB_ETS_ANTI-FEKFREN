@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grand Gemini Hotel - Home</title>
+    <title>Membership - East Out Hotel</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-<body>
+<body class="page-no-scroll">
 
+    <!-- Full Header -->
     <div id="menu-overlay"></div>
     <nav id="side-menu">
         <button id="menu-close" aria-label="Close menu"><i class="fas fa-times"></i></button>
@@ -19,7 +20,6 @@
                 <img src="/logohd.png" alt="East Out Hotel Logo" class="side-menu-logo">
             </a>
             <ul class="side-menu-nav">
-                <!-- Added data-keys -->
                 <li><a href="index.html" data-key="nav_home">Home</a></li>
                 <li><a href="rooms.html" data-key="nav_rooms">Rooms</a></li>
                 <li><a href="membership.html" data-key="nav_membership">Membership</a></li>
@@ -40,7 +40,6 @@
                 </a>
             </div>
             <div class="header-right-nav">
-                <!-- ✅ UPDATED Language Selector to a Button -->
                 <button class="lang-selector" id="lang-toggle-btn">EN</button>
                 <button id="dark-mode-toggle" aria-label="Toggle dark mode">
                     <i class="fas fa-moon"></i> <i class="fas fa-sun"></i>
@@ -51,64 +50,48 @@
             </div>
         </div>
     </header>
-
-    <div id="the-sun"></div>
-    <div id="the-moon"></div>
-
+    <!-- End of Header -->
+    
     <main class="page-content">
-        
         <section class="discover-section">
-            <div class="container">
-                <!-- Added data-keys -->
-                <h2 data-key="discover_title">Discover East Out Hotel</h2>
-                <p class="subtitle" data-key="discover_subtitle">Your adventure begins here</p>
-                <p class="description" data-key="discover_desc">
-                    Ready for a sun-drenched escape? Sitting at the heart of the mountains, our hotel is a lovingly developed Finca, blending rustic charm with modern luxury for an intimate, 27-bedroom experience.
-                </p>
-            </div>
-        </section>
+            <h2 class="room-page-title" data-key="membership_title">Our Membership</h2>
+            <p class="description" style="max-width: 600px; margin: 0 auto 40px;" data-key="membership_subtitle">
+                Join our exclusive membership program to enjoy discounts and special benefits on every stay.
+            </p>
 
-        <section class="content-grid-section">
-            <div class="container">
-                <div class="grid-row">
-                    <div class="grid-text">
-                        <!-- Added data-keys -->
-                        <h3 data-key="staying_title">Staying at Eastout</h3>
-                        <p data-key="staying_desc">Choose from our 27 beautifully designed rooms, each with its own character. From the unique Tower Suites to rooms with private terraces boasting soaring sunrise views, you'll find the perfect, comfortable space to relax after a day of exploring the island.</p>
-                        <a href="rooms.html" class="explore-link" data-key="explore_rooms">Explore Rooms <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                    <div class="grid-image">
-                        <img src="https://via.placeholder.com/600x400/345a40/ffffff?text=Cozy+Room+Interior" alt="Hotel Room Interior">
-                    </div>
+            <div class="membership-grid">
+                <!-- Tier 1: Silver -->
+                <div class="membership-card">
+                    <h3 data-key="membership_silver_name">Silver</h3>
+                    <div class="membership-discount" data-key="membership_silver_discount">5% Discount</div>
+                    <p data-key="membership_silver_desc">Enjoy a 5% discount on all room bookings, priority check-in, and a complimentary welcome drink.</p>
+                    <button class="btn btn-book" data-key="join_now">Join Now</button>
                 </div>
-                
-                <div class="grid-row row-reverse">
-                    <div class="grid-text">
-                        <!-- Added data-keys -->
-                        <h3 data-key="dining_title">Dining</h3>
-                        <p data-key="dining_desc">Savour authentic local dishes crafted from fresh produce grown in our own gardens and orchards, perfectly paired with award-winning local wines. Our chefs bring vibrant, sun-ripened flavours to life at our terrace restaurant, where Mediterranean cuisine is served alongside breathtaking views.</p>
-                        <a href="#" class="explore-link" data-key="explore_dining">Explore Dining <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                    <div class="grid-image">
-                        <img src="https://via.placeholder.com/600x400/ffb703/003049?text=Gourmet+Dining" alt="Restaurant Dining">
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <section class="newsletter-section">
-            <div class="container">
-                <!-- Added data-key -->
-                <a href="#" data-key="newsletter_signup">Sign up to our newsletter <i class="fas fa-arrow-right"></i></a>
+                <!-- Tier 2: Gold -->
+                <div class="membership-card active">
+                    <h3 data-key="membership_gold_name">Gold</h3>
+                    <div class="membership-discount" data-key="membership_gold_discount">10% Discount</div>
+                    <p data-key="membership_gold_desc">Get 10% off all bookings, free room upgrades (when available), and complimentary breakfast for one.</p>
+                    <button class="btn btn-book" data-key="join_now">Join Now</button>
+                </div>
+
+                <!-- Tier 3: Platinum -->
+                <div class="membership-card">
+                    <h3 data-key="membership_platinum_name">Platinum</h3>
+                    <div class="membership-discount" data-key="membership_platinum_discount">15% Discount</div>
+                    <p data-key="membership_platinum_desc">Our top tier offers 15% off, guaranteed room upgrades, and full complimentary breakfast for two.</p>
+                    <button class="btn btn-book" data-key="join_now">Join Now</button>
+                </div>
             </div>
         </section>
     </main>
-
+    
+    <!-- Full Footer -->
     <footer class="main-footer" id="main-footer">
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-column">
-                    <!-- Added data-keys -->
                     <h4 data-key="footer_reservations">Reservations</h4>
                     <ul>
                         <li><a href="#" data-key="footer_book_online">Book online</a></li>
@@ -118,7 +101,6 @@
                     </ul>
                 </div>
                 <div class="footer-column">
-                    <!-- Added data-keys -->
                     <h4 data-key="footer_about">About us</h4>
                     <ul>
                         <li><a href="#" data-key="footer_commitment">Our commitment</a></li>
@@ -128,7 +110,6 @@
                     </ul>
                 </div>
                 <div class="footer-column">
-                    <!-- Added data-keys -->
                     <h4 data-key="footer_legal">The legal bits</h4>
                     <ul>
                         <li><a href="#" data-key="footer_terms">Terms and conditions</a></li>
@@ -137,7 +118,6 @@
                     </ul>
                 </div>
                 <div class="footer-column">
-                    <!-- Added data-key -->
                     <h4 data-key="footer_follow">Follow us</h4>
                     <div class="social-icons">
                         <a href="#"><i class="fab fa-twitter"></i></a>
@@ -151,11 +131,10 @@
             </div>
         </div>
     </footer>
+    <!-- End of Footer -->
 
-    <!-- ✅ ADDED translations.js -->
     <script src="translations.js"></script>
     <script src="script.js"></script>
 
 </body>
 </html>
-

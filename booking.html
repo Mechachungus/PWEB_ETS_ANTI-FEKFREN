@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <title>Book Your Stay - East Out Hotel</title>
-    
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="/logo.png">
@@ -15,12 +13,7 @@
 </head>
 <body class="page-no-scroll">
 
-    <header class="minimal-header">
-        </header>
-
-    <div id="the-sun"></div>
-    <div id="the-moon"></div>
-
+    <!-- Full Header -->
     <div id="menu-overlay"></div>
     <nav id="side-menu">
         <button id="menu-close" aria-label="Close menu"><i class="fas fa-times"></i></button>
@@ -29,12 +22,13 @@
                 <img src="/logohd.png" alt="East Out Hotel Logo" class="side-menu-logo">
             </a>
             <ul class="side-menu-nav">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="rooms.html">Rooms</a></li>
-                <li><a href="#">Gallery</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="index.html" data-key="nav_home">Home</a></li>
+                <li><a href="rooms.html" data-key="nav_rooms">Rooms</a></li>
+                <li><a href="membership.html" data-key="nav_membership">Membership</a></li>
+                <li><a href="#" data-key="nav_gallery">Gallery</a></li>
+                <li><a href="#" data-key="nav_contact">Contact</a></li>
             </ul>
-            <a href="booking.html" class="btn btn-book">Book Now</a>
+            <a href="booking.html" class="btn btn-book" data-key="book_now">Book Now</a>
         </div>
     </nav>
     <header class="minimal-header">
@@ -48,110 +42,119 @@
                 </a>
             </div>
             <div class="header-right-nav">
-                <div class="lang-selector">
-                    EN <i class="fas fa-chevron-down"></i>
-                </div>
+                <button class="lang-selector" id="lang-toggle-btn">EN</button>
                 <button id="dark-mode-toggle" aria-label="Toggle dark mode">
                     <i class="fas fa-moon"></i> <i class="fas fa-sun"></i>
                 </button>
-                
                 <a href="login.html" id="profile-icon-link" class="header-icon" aria-label="Login or Profile">
                     <i class="fas fa-user-circle"></i>
                 </a>
             </div>
         </div>
     </header>
+    <!-- End of Header -->
+
     <main class="page-content">
-        
         <section class="content-grid-section">
             <div class="container">
-                
-                <h2 class="room-page-title">Complete Your Reservation</h2>
-                
+                <h2 class="room-page-title" data-key="booking_title">Complete Your Reservation</h2>
                 <div class="booking-layout">
-                    
+                    <!-- LEFT COLUMN: FORM -->
                     <div class="booking-form">
                         <form id="reservation-form">
-                            
-                            <h3>Your Details</h3>
+                            <h3 data-key="booking_your_details">Your Details</h3>
                             <div class="form-group">
-                                <label for="full-name">Full Name</label>
+                                <label for="full-name" data-key="booking_full_name">Full Name</label>
                                 <input type="text" id="full-name" name="full-name" required>
                             </div>
                             <div class="form-group">
-                                <label for="email">Email Address</label>
+                                <label for="email" data-key="booking_email">Email Address</label>
                                 <input type="email" id="email" name="email" required>
                             </div>
                             <div class="form-group">
-                                <label for="phone">Phone Number</label>
+                                <label for="phone" data-key="booking_phone">Phone Number</label>
                                 <input type="tel" id="phone" name="phone">
                             </div>
-
-                            <h3>Select Dates</h3>
+                            <h3 data-key="booking_select_dates">Select Dates</h3>
                             <div class="form-group">
-                                <label for="date-picker">Check-In & Check-Out</label>
+                                <label for="date-picker" data-key="booking_checkin_checkout">Check-In & Check-Out</label>
                                 <input type="text" id="date-picker" name="date-range" required>
                             </div>
-                            <h3>Payment Details</h3>
+                            <h3 data-key="booking_payment_details">Payment Details</h3>
                             <div class="form-group">
-                                <label for="card-name">Name on Card</label>
+                                <label for="card-name" data-key="booking_card_name">Name on Card</label>
                                 <input type="text" id="card-name" name="card-name" required>
                             </div>
                             <div class="form-group">
-                                <label for="card-number">Card Number</label>
+                                <label for="card-number" data-key="booking_card_number">Card Number</label>
                                 <input type="text" id="card-number" name="card-number" required>
                             </div>
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label for="card-expiry">Expiry (MM/YY)</label>
+                                    <label for="card-expiry" data-key="booking_card_expiry">Expiry (MM/YY)</label>
                                     <input type="text" id="card-expiry" name="card-expiry" placeholder="MM/YY" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="card-cvc">CVC</label>
+                                    <label for="card-cvc" data-key="booking_card_cvc">CVC</label>
                                     <input type="text" id="card-cvc" name="card-cvc" placeholder="123" required>
                                 </div>
                             </div>
-                            
-                            <button type="submit" class="btn btn-book btn-full-width">Confirm & Pay</button>
-
+                            <button type="submit" class="btn btn-book btn-full-width" data-key="booking_confirm_pay">Confirm & Pay</button>
                         </form>
                     </div>
-                    
+                    <!-- RIGHT COLUMN: SUMMARY "CART" -->
                     <div class="booking-summary">
-                        <h3>Your Reservation</h3>
+                        <h3 data-key="booking_your_reservation">Your Reservation</h3>
                         <div class="summary-item">
-                            <label for="room-type-select">Room Type:</label>
+                            <label for="room-type-select" data-key="booking_room_type">Room Type:</label>
                             <select id="room-type-select" name="room-type" class="summary-select">
-                                <option value="">-- Select a room --</option>
-                                <option value="deluxe">Deluxe Room</option>
-                                <option value="executive">Executive Suite</option>
-                                <option value="luxury">Luxury Villa</option>
+                                <option value="" data-key="booking_select_room">-- Select a room --</option>
+                                <option value="deluxe" data-key="room_deluxe">Deluxe Room</option>
+                                <option value="executive" data-key="room_executive">Executive Suite</option>
+                                <option value="luxury" data-key="room_luxury">Luxury Villa</option>
                             </select>
                         </div>
                         <div class="summary-item">
-                            <span>Price per night:</span>
+                            <span data-key="booking_price_night">Price per night:</span>
                             <strong id="selected-room-price">-</strong>
                         </div>
                         <div class="summary-divider"></div>
                         <div class="summary-item total">
-                            <span>Estimated Total:</span>
+                            <span data-key="booking_total">Estimated Total:</span>
                             <strong id="selected-room-total">-</strong>
                         </div>
-                        <p class="summary-note">The final price will be calculated based on your selected dates and any applicable taxes.</p>
+                        <p class="summary-note" data-key="booking_note">The final price will be calculated based on your selected dates and any applicable taxes.</p>
                     </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
-                </div> </div> </section> </main>
-
+    <!-- Full Footer -->
     <footer class="main-footer" id="main-footer">
         <div class="container">
+            <!-- Footer Content with data-keys -->
+            <div class="footer-grid">
+                 <div class="footer-column">
+                    <h4 data-key="footer_reservations">Reservations</h4>
+                    <ul>
+                        <li><a href="#" data-key="footer_book_online">Book online</a></li>
+                        <li><a href="#" data-key="footer_enquire">Enquire</a></li>
+                        <li><a href="#" data-key="footer_email">Email us (Rest of the World)</a></li>
+                        <li><a href="#" data-key="footer_modify">Modify a reservation</a></li>
+                    </ul>
+                </div>
+                <!-- ... other columns ... -->
+            </div>
             <div class="footer-bottom">
                 <p>&copy; 2025 East Out Hotel. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
 
+    <script src="translations.js"></script>
     <script src="script.js"></script>
-
+    <!-- Page-specific script -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // --- 1. Define Room Data & Select Elements ---
@@ -169,14 +172,10 @@
 
             // --- 2. Helper Functions ---
             
-            /**
-             * Updates the price display based on the selected room.
-             */
             function updatePrice(roomType) {
                 if (roomType && roomData[roomType]) {
                     const room = roomData[roomType];
                     priceElement.textContent = `$${room.price}`;
-                    // Placeholder total. Real logic would multiply by nights selected.
                     totalElement.textContent = `$${room.price}`; 
                 } else {
                     priceElement.textContent = '-';
@@ -184,9 +183,6 @@
                 }
             }
 
-            /**
-             * Gets fake locked dates. Your colleague will update this.
-             */
             function getLockedDatesForRoom(roomType) {
                 console.log(`Fetching booked dates for: ${roomType}`);
                 const fakeBookedDates = {
@@ -197,17 +193,11 @@
                 return Promise.resolve(fakeBookedDates[roomType] || []);
             }
 
-            /**
-             * Initializes or re-initializes the date picker
-             * with locked dates for the selected room.
-             */
             function initializeLitepicker(roomType) {
-                // Destroy the old picker if it exists
                 if (picker) {
                     picker.destroy();
                 }
                 
-                // Get new locked dates, then create the picker
                 getLockedDatesForRoom(roomType).then(lockedDays => {
                     picker = new Litepicker({
                         element: document.getElementById('date-picker'),
@@ -215,7 +205,7 @@
                         allowRepick: true,
                         format: 'MMM D, YYYY',
                         minDate: new Date(),
-                        lockDays: lockedDays, // ⭐️ Dynamically set locked dates
+                        lockDays: lockedDays,
                         tooltipText: { one: 'night', other: 'nights' },
                         setup: (pickerInstance) => {
                             pickerInstance.on('tooltip', (tooltip, day) => {
@@ -230,13 +220,10 @@
 
             // --- 3. Event Listeners ---
             
-            /**
-             * When the user manually changes the room dropdown.
-             */
             roomSelect.addEventListener('change', function() {
                 const selectedRoom = this.value;
                 updatePrice(selectedRoom);
-                initializeLitepicker(selectedRoom); // Re-load calendar
+                initializeLitepicker(selectedRoom);
             });
 
             // --- 4. Initial Page Load Logic ---
@@ -245,17 +232,15 @@
             const urlRoom = params.get('room');
             
             if (urlRoom && roomData[urlRoom]) {
-                // A room was passed from rooms.html
                 roomSelect.value = urlRoom;
-                roomSelect.disabled = true; // Lock the dropdown
+                roomSelect.disabled = true;
             }
             
-            // Initialize the page with the (pre-selected or default) room
             const initialRoom = roomSelect.value;
             updatePrice(initialRoom);
             initializeLitepicker(initialRoom);
         });
     </script>
-
 </body>
 </html>
+
