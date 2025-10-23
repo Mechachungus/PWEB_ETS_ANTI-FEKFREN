@@ -60,27 +60,31 @@
             </p>
 
             <div class="membership-grid">
-                <!-- ✅ Tier 1: Basic -->
+                <!-- Tier 1: Basic -->
                 <div class="membership-card">
                     <h3 data-key="membership_basic_name">Basic</h3>
-                    <div class="membership-discount" data-key="membership_basic_discount">5% Discount</div>
-                    <p data-key="membership_basic_desc">Enjoy a 5% discount on room bookings and receive exclusive member-only email offers.</p>
-                    <button class="btn btn-book" data-key="join_now">Join Now</button>
+                    <div class="membership-price" data-key="membership_basic_price">Free</div> 
+                    <div class="membership-discount" data-key="membership_basic_discount">0% Discount</div>
+                    <p data-key="membership_basic_desc">For anyone who has EastOut account. You can access all features of the web without any additional benefits and upgradable level.</p>
+                    <p class="membership-note" data-key="membership_basic_note">Default membership for all customers.</p> 
+                    {/* Removed Join Now button */}
                 </div>
 
-                <!-- ✅ Tier 2: VIP -->
-                <div class="membership-card active"> 
+                <!-- Tier 2: VIP -->
+                <div class="membership-card active"> {/* Highlighted tier */}
                     <h3 data-key="membership_vip_name">VIP</h3>
-                    <div class="membership-discount" data-key="membership_vip_discount">10% Discount</div>
-                    <p data-key="membership_vip_desc">Get 10% off all bookings, priority check-in, a complimentary welcome drink, and late checkout options.</p>
+                    <div class="membership-price">Rp5.000.000</div> {/* Formatted price */}
+                    <div class="membership-discount" data-key="membership_vip_discount">25% Discount</div>
+                    <p data-key="membership_vip_desc">For you, our best friend. You will get access to a special discount of 25% for every transaction. You will also get a special present for your birthday.</p>
                     <button class="btn btn-book" data-key="join_now">Join Now</button>
                 </div>
 
-                <!-- ✅ Tier 3: VVIP -->
+                <!-- Tier 3: VVIP -->
                 <div class="membership-card">
                     <h3 data-key="membership_vvip_name">VVIP</h3>
-                    <div class="membership-discount" data-key="membership_vvip_discount">15% Discount</div>
-                    <p data-key="membership_vvip_desc">Our top tier offers 15% off, free room upgrades (subject to availability), complimentary breakfast, and exclusive lounge access.</p>
+                    <div class="membership-price">Rp1.200.000</div> {/* Formatted price - NOTE: Lower than VIP based on SQL */}
+                    <div class="membership-discount" data-key="membership_vvip_discount">50% Discount</div>
+                    <p data-key="membership_vvip_desc">For you, our family. You will get access to a special discount of 50% for every transaction. You can have free meal course twice a week. You will also get a special present for your birthday.</p>
                     <button class="btn btn-book" data-key="join_now">Join Now</button>
                 </div>
             </div>
@@ -131,7 +135,6 @@
             </div>
         </div>
     </footer>
-    <!-- End of Footer -->
 
     <script src="translations.js"></script>
     <script src="script.js"></script>

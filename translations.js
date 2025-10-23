@@ -104,7 +104,7 @@ const translations = {
         
         // --- Review Page ---
         'review_title': 'Leave a Review',
-        'review_subtitle': 'Reviewing your stay for booking #123',
+        'review_subtitle': 'Reviewing your stay for booking #', // ID will be added by JS if needed
         'review_room_rating': 'Room Rating',
         'review_hospitality_rating': 'Hospitality Rating',
         'review_description': 'Description',
@@ -114,14 +114,18 @@ const translations = {
         'membership_title': 'Our Membership',
         'membership_subtitle': 'Join our exclusive membership program to enjoy discounts and special benefits on every stay.',
         'membership_basic_name': 'Basic',
-        'membership_basic_discount': '5% Discount',
-        'membership_basic_desc': 'Enjoy a 5% discount on room bookings and receive exclusive member-only email offers.',
+        'membership_basic_price': 'Free',
+        'membership_basic_discount': '0% Discount',
+        'membership_basic_desc': 'For anyone who has EastOut account. You can access all features of the web without any additional benefits and upgradable level.',
+        'membership_basic_note': 'Default membership for all customers.',
         'membership_vip_name': 'VIP',
-        'membership_vip_discount': '10% Discount',
-        'membership_vip_desc': 'Get 10% off all bookings, priority check-in, a complimentary welcome drink, and late checkout options.',
+        'membership_vip_price': 'Rp5.000.000', // Pre-formatted for display
+        'membership_vip_discount': '25% Discount',
+        'membership_vip_desc': 'For you, our best friend. You will get access to a special discount of 25% for every transaction. You will also get a special present for your birthday.',
         'membership_vvip_name': 'VVIP',
-        'membership_vvip_discount': '15% Discount',
-        'membership_vvip_desc': 'Our top tier offers 15% off, free room upgrades (subject to availability), complimentary breakfast, and exclusive lounge access.',
+        'membership_vvip_price': 'Rp1.200.000', // Pre-formatted for display (NOTE: From SQL)
+        'membership_vvip_discount': '50% Discount',
+        'membership_vvip_desc': 'For you, our family. You will get access to a special discount of 50% for every transaction. You can have free meal course twice a week. You will also get a special present for your birthday.',
         'join_now': 'Join Now',
 
         // --- Footer ---
@@ -244,7 +248,7 @@ const translations = {
 
         // --- Review Page ---
         'review_title': 'Beri Ulasan',
-        'review_subtitle': 'Mengulas masa inap Anda untuk pesanan #123',
+        'review_subtitle': 'Mengulas masa inap Anda untuk pesanan #', // ID ditambahkan oleh JS jika perlu
         'review_room_rating': 'Peringkat Kamar',
         'review_hospitality_rating': 'Peringkat Keramahan',
         'review_description': 'Deskripsi',
@@ -254,14 +258,18 @@ const translations = {
         'membership_title': 'Keanggotaan Kami',
         'membership_subtitle': 'Bergabunglah dengan program keanggotaan eksklusif kami untuk menikmati diskon dan keuntungan khusus setiap kali menginap.',
         'membership_basic_name': 'Basic',
-        'membership_basic_discount': 'Diskon 5%',
-        'membership_basic_desc': 'Nikmati diskon 5% untuk pemesanan kamar dan terima penawaran email eksklusif khusus anggota.',
+        'membership_basic_price': 'Gratis',
+        'membership_basic_discount': 'Diskon 0%',
+        'membership_basic_desc': 'Untuk siapa saja yang memiliki akun EastOut. Anda dapat mengakses semua fitur web tanpa keuntungan tambahan dan level yang dapat ditingkatkan.',
+        'membership_basic_note': 'Keanggotaan default untuk semua pelanggan.',
         'membership_vip_name': 'VIP',
-        'membership_vip_discount': 'Diskon 10%',
-        'membership_vip_desc': 'Dapatkan diskon 10% untuk semua pemesanan, prioritas check-in, minuman selamat datang gratis, dan opsi check-out lebih lambat.',
+        'membership_vip_price': 'Rp5.000.000', // Harga diformat
+        'membership_vip_discount': 'Diskon 25%',
+        'membership_vip_desc': 'Untuk Anda, sahabat terbaik kami. Anda akan mendapatkan akses diskon khusus 25% untuk setiap transaksi. Anda juga akan mendapatkan hadiah khusus untuk ulang tahun Anda.',
         'membership_vvip_name': 'VVIP',
-        'membership_vvip_discount': 'Diskon 15%',
-        'membership_vvip_desc': 'Tingkat teratas kami menawarkan diskon 15%, upgrade kamar gratis (tergantung ketersediaan), sarapan gratis, dan akses lounge eksklusif.',
+        'membership_vvip_price': 'Rp1.200.000', // Harga diformat (Catatan: Dari SQL)
+        'membership_vvip_discount': 'Diskon 50%',
+        'membership_vvip_desc': 'Untuk Anda, keluarga kami. Anda akan mendapatkan akses diskon khusus 50% untuk setiap transaksi. Anda dapat menikmati hidangan gratis dua kali seminggu. Anda juga akan mendapatkan hadiah khusus untuk ulang tahun Anda.',
         'join_now': 'Bergabung Sekarang',
 
         // --- Footer ---
@@ -282,3 +290,4 @@ const translations = {
         'footer_follow': 'Ikuti kami',
     }
 };
+

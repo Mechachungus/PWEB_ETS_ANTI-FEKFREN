@@ -157,38 +157,51 @@
     <!-- Page-specific script -->
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // --- 1. Define Room Data & Select Elements ---
+        // --- 1. Define Room Data & Select Elements (with Rupiah prices) ---
         const roomData = {
-            'deluxe': { name: 'Deluxe Room', price: 250 },
-            'executive': { name: 'Executive Suite', price: 400 },
-            'luxury': { name: 'Luxury Villa', price: 700 }
+            'deluxe': { name: 'Deluxe Room', price: 2500000 },  // e.g., Rp 2.500.000
+            'executive': { name: 'Executive Suite', price: 4000000 }, // e.g., Rp 4.000.000
+            'luxury': { name: 'Luxury Villa', price: 7000000 }   // e.g., Rp 7.000.000
         };
         
         const roomSelect = document.getElementById('room-type-select');
         const priceElement = document.getElementById('selected-room-price');
         const totalElement = document.getElementById('selected-room-total');
-        const datePickerInput = document.getElementById('date-picker'); // Get the date input
+        const datePickerInput = document.getElementById('date-picker'); 
         
-        let picker = null; // We'll store the date picker here
-        let numberOfNights = 0; // Store the number of nights selected
+        let picker = null; 
+        let numberOfNights = 0; 
+        let currentRoomType = roomSelect.value; // Store currently selected room
 
         // --- 2. Helper Functions ---
 
         /**
+         * Formats a number as Indonesian Rupiah.
+         */
+        function formatRupiah(number) {
+            if (isNaN(number) || number === null || number <= 0) {
+                return '-';
+            }
+            return 'Rp' + number.toLocaleString('id-ID'); 
+        }
+
+        /**
          * Calculates the total price based on room type and number of nights.
          */
-        function calculateAndUpdateTotal(roomType) {
-            if (roomType && roomData[roomType] && numberOfNights > 0) {
+        function calculateAndUpdateDisplay() {
+            const roomType = currentRoomType; // Use the stored value
+            if (roomType && roomData[roomType]) {
                 const room = roomData[roomType];
-                const totalPrice = room.price * numberOfNights;
-                priceElement.textContent = `$${room.price}`;
-                totalElement.textContent = `$${totalPrice}`;
-            } else if (roomType && roomData[roomType]) {
-                 // Only show price per night if dates aren't selected yet
-                 priceElement.textContent = `$${room.price}`;
-                 totalElement.textContent = '-';
-            }
-             else {
+                priceElement.textContent = formatRupiah(room.price); // Always show price per night if room is selected
+
+                if (numberOfNights > 0) {
+                    const totalPrice = room.price * numberOfNights;
+                    totalElement.textContent = formatRupiah(totalPrice); // Show total if nights are selected
+                } else {
+                    totalElement.textContent = '-'; // Show '-' if nights are 0 or invalid
+                }
+            } else {
+                // No room selected
                 priceElement.textContent = '-';
                 totalElement.textContent = '-';
             }
@@ -198,14 +211,14 @@
          * Gets fake locked dates. Your colleague will update this.
          */
         function getLockedDatesForRoom(roomType) {
-            // ... (keep this function exactly as it was) ...
-            console.log(`Fetching booked dates for: ${roomType}`);
+            console.log(`Fetching booked dates for: ${roomType || 'none'}`); // Handle empty roomType
             const fakeBookedDates = {
                 'deluxe': ['2025-11-10', '2025-11-11', '2025-11-18', '2025-11-19', '2025-11-20'],
                 'executive': ['2025-11-12', '2025-11-13'],
                 'luxury': ['2025-11-15']
             };
-            return Promise.resolve(fakeBookedDates[roomType] || []);
+            // Only return dates if a valid roomType is provided
+            return Promise.resolve(roomType ? (fakeBookedDates[roomType] || []) : []);
         }
 
         /**
@@ -215,50 +228,80 @@
         function initializeLitepicker(roomType) {
             if (picker) {
                 picker.destroy();
+                picker = null; // Ensure picker is nullified
+                numberOfNights = 0; // Reset nights when room changes
+                datePickerInput.value = ''; // Clear date input visually
+                calculateAndUpdateDisplay(); // Update display to show '-' for total
             }
             
-            getLockedDatesForRoom(roomType).then(lockedDays => {
-                picker = new Litepicker({
-                    element: datePickerInput, // Use the variable
-                    singleMode: false,
-                    allowRepick: true,
-                    format: 'MMM D, YYYY',
-                    minDate: new Date(),
-                    lockDays: lockedDays,
-                    tooltipText: { one: 'night', other: 'nights' },
-                    setup: (pickerInstance) => {
-                        pickerInstance.on('tooltip', (tooltip, day) => {
-                            if (day.isLocked) {
-                                tooltip.innerHTML = 'Sorry, this date is unavailable';
-                            }
-                        });
+            // Only initialize if a room type is selected
+            if (!roomType) {
+                datePickerInput.placeholder = 'Select a room first'; // Optional feedback
+                datePickerInput.disabled = true;
+                return; 
+            } else {
+                 datePickerInput.placeholder = ''; // Clear placeholder
+                 datePickerInput.disabled = false;
+            }
 
-                        // ✅ NEW: Listen for date selection
-                        pickerInstance.on('selected', (date1, date2) => {
-                            if (date1 && date2) {
-                                // Calculate difference in milliseconds
-                                const diffTime = Math.abs(date2.dateInstance - date1.dateInstance);
-                                // Convert milliseconds to days
-                                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                                numberOfNights = diffDays;
-                            } else {
-                                numberOfNights = 0; // Reset if only one date is picked
-                            }
-                            // Recalculate total whenever dates change
-                            calculateAndUpdateTotal(roomSelect.value);
-                        });
-                    }
-                });
+            getLockedDatesForRoom(roomType).then(lockedDays => {
+                // Ensure picker is only created once per initialization
+                if (!picker) { 
+                    picker = new Litepicker({
+                        element: datePickerInput, 
+                        singleMode: false,
+                        allowRepick: true,
+                        format: 'MMM D, YYYY',
+                        minDate: new Date(),
+                        lockDays: lockedDays,
+                        tooltipText: { one: 'night', other: 'nights' },
+                        setup: (pickerInstance) => {
+                            pickerInstance.on('tooltip', (tooltip, day) => {
+                                if (day.isLocked) {
+                                    tooltip.innerHTML = 'Sorry, this date is unavailable';
+                                }
+                            });
+
+                            pickerInstance.on('selected', (date1, date2) => {
+                                if (date1 && date2) {
+                                    // Ensure dates are valid Date objects before calculation
+                                    const startDate = date1.dateInstance;
+                                    const endDate = date2.dateInstance;
+                                    if (startDate instanceof Date && !isNaN(startDate) && 
+                                        endDate instanceof Date && !isNaN(endDate)) {
+                                            
+                                        const diffTime = Math.abs(endDate - startDate);
+                                        // Use floor for nights calculation (Check-out day isn't counted)
+                                        // Add 1ms to diffTime to handle exact day boundaries if needed, 
+                                        // but standard difference usually works for nights.
+                                        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+                                        numberOfNights = diffDays > 0 ? diffDays : 0;
+                                    } else {
+                                         numberOfNights = 0;
+                                    }
+                                } else {
+                                    numberOfNights = 0; 
+                                }
+                                calculateAndUpdateDisplay(); // Use the unified update function
+                            });
+                        }
+                    });
+                }
+            }).catch(error => {
+                console.error("Error fetching locked dates or initializing picker:", error);
+                // Optionally disable date picker or show an error message to the user
+                datePickerInput.disabled = true;
+                datePickerInput.placeholder = 'Error loading dates';
             });
         }
 
         // --- 3. Event Listeners ---
         
         roomSelect.addEventListener('change', function() {
-            const selectedRoom = this.value;
-            // Update price AND total when room changes
-            calculateAndUpdateTotal(selectedRoom); 
-            initializeLitepicker(selectedRoom); 
+            currentRoomType = this.value; // Update stored room type
+            numberOfNights = 0; // Reset nights when room changes
+            calculateAndUpdateDisplay(); // Update price immediately, total will be '-'
+            initializeLitepicker(currentRoomType); // Re-initialize picker with new locked dates
         });
 
         // --- 4. Initial Page Load Logic ---
@@ -268,14 +311,18 @@
         
         if (urlRoom && roomData[urlRoom]) {
             roomSelect.value = urlRoom;
-            roomSelect.disabled = true;
+            roomSelect.disabled = true; // Keep dropdown locked if coming from rooms page
+            currentRoomType = urlRoom; // Set initial room type
+        } else {
+            currentRoomType = roomSelect.value; // Get initial value (might be "")
         }
         
-        const initialRoom = roomSelect.value;
-        calculateAndUpdateTotal(initialRoom); // Use the updated function
-        initializeLitepicker(initialRoom);
+        calculateAndUpdateDisplay(); // Update display based on initial state
+        initializeLitepicker(currentRoomType); // Initialize picker based on initial state
     });
 </script>
+
+
 </body>
 </html>
 
