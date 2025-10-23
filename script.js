@@ -137,4 +137,29 @@ document.addEventListener("DOMContentLoaded", function() {
     // Add event listeners
     window.addEventListener("scroll", handleScroll);
     window.addEventListener("resize", handleScroll);
+
+    // --- ✅ 4. SIDE MENU TOGGLE LOGIC ---
+    
+    // Select the new menu elements
+    const menuToggle = document.querySelector('.menu-toggle');
+    const menuClose = document.getElementById('menu-close');
+    const sideMenu = document.getElementById('side-menu');
+    const menuOverlay = document.getElementById('menu-overlay');
+
+    // Function to open the menu
+    function openMenu() {
+        sideMenu.classList.add('open');
+        menuOverlay.classList.add('open');
+    }
+
+    // Function to close the menu
+    function closeMenu() {
+        sideMenu.classList.remove('open');
+        menuOverlay.classList.remove('open');
+    }
+
+    // Event Listeners
+    menuToggle.addEventListener('click', openMenu);
+    menuClose.addEventListener('click', closeMenu);
+    menuOverlay.addEventListener('click', closeMenu);
 });

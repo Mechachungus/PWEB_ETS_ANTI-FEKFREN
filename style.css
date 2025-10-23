@@ -1,4 +1,107 @@
-/* ======== CSS Variables (New Theme) ======== */
+/* ======== Side Menu ======== */
+
+#menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+#menu-overlay.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+#side-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 300px;
+    background-color: var(--background-white);
+    z-index: 1001;
+    box-shadow: 4px 0 15px rgba(0,0,0,0.1);
+    
+    /* Hide it off-screen to the left */
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+}
+#side-menu.open {
+    transform: translateX(0);
+}
+
+.side-menu-content {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#menu-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: var(--text-light-gray);
+    cursor: pointer;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+}
+
+.side-menu-logo {
+    height: 40px;
+    width: auto;
+    margin-bottom: 40px;
+}
+
+.side-menu-nav {
+    list-style: none;
+    margin-bottom: auto; /* Pushes the button to the bottom */
+}
+.side-menu-nav li {
+    margin-bottom: 15px;
+}
+.side-menu-nav a {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--text-dark);
+}
+.side-menu-nav a:hover {
+    color: var(--primary-color);
+}
+
+.side-menu-nav .btn-book {
+    width: 100%;
+    background-color: var(--primary-color);
+    color: var(--text-light);
+}
+.side-menu-nav .btn-book:hover {
+    background-color: var(--primary-color-dark);
+}
+
+
+/* Dark Mode for Menu */
+body.dark-mode #side-menu {
+    background-color: #1a1a1a;
+    box-shadow: 4px 0 15px rgba(0,0,0,0.4);
+}
+body.dark-mode .side-menu-logo {
+    filter: brightness(0) invert(1);
+}
+body.dark-mode #menu-close {
+    color: var(--text-light);
+}
+body.dark-mode .side-menu-nav a {
+    color: var(--text-light);
+}
+body.dark-mode .side-menu-nav a:hover {
+    color: var(--accent-color);
+}
 /* ======== CSS Variables (New Theme) ======== */
 :root {
     --primary-color: #345a40; 
