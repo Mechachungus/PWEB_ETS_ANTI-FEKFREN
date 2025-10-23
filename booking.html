@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Book Your Stay - East Out Hotel</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <header class="minimal-header">
+        </header>
+
+    <div id="the-sun"></div>
+    <div id="the-moon"></div>
+
+    <main class="page-content">
+        
+        <section class="content-grid-section">
+            <div class="container">
+                
+                <h2 class="room-page-title">Complete Your Reservation</h2>
+                
+                <div class="booking-layout">
+                    
+                    <div class="booking-form">
+                        <form id="reservation-form">
+                            
+                            <h3>Your Details</h3>
+                            <div class="form-group">
+                                <label for="full-name">Full Name</label>
+                                <input type="text" id="full-name" name="full-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" name="phone">
+                            </div>
+
+                            <h3>Select Dates</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="check-in">Check-In</label>
+                                    <input type="date" id="check-in" name="check-in" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="check-out">Check-Out</label>
+                                    <input type="date" id="check-out" name="check-out" required>
+                                </div>
+                            </div>
+
+                            <h3>Payment Details</h3>
+                            <div class="form-group">
+                                <label for="card-name">Name on Card</label>
+                                <input type="text" id="card-name" name="card-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="card-number">Card Number</label>
+                                <input type="text" id="card-number" name="card-number" required>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="card-expiry">Expiry (MM/YY)</label>
+                                    <input type="text" id="card-expiry" name="card-expiry" placeholder="MM/YY" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="card-cvc">CVC</label>
+                                    <input type="text" id="card-cvc" name="card-cvc" placeholder="123" required>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-book btn-full-width">Confirm & Pay</button>
+
+                        </form>
+                    </div>
+                    
+                    <div class="booking-summary">
+                        <h3>Your Reservation</h3>
+                        <div class="summary-item">
+                            <span>Room Type:</span>
+                            <strong id="selected-room-type">No room selected</strong>
+                        </div>
+                        <div class="summary-item">
+                            <span>Price per night:</span>
+                            <strong id="selected-room-price">-</strong>
+                        </div>
+                        <div class="summary-divider"></div>
+                        <div class="summary-item total">
+                            <span>Estimated Total:</span>
+                            <strong id="selected-room-total">-</strong>
+                        </div>
+                        <p class="summary-note">The final price will be calculated based on your selected dates and any applicable taxes.</p>
+                    </div>
+
+                </div> </div> </section> </main>
+
+    <footer class="main-footer" id="main-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 East Out Hotel. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 1. Get the URL parameters
+            const params = new URLSearchParams(window.location.search);
+            const roomType = params.get('room');
+
+            // 2. Find the elements to update
+            const roomElement = document.getElementById('selected-room-type');
+            const priceElement = document.getElementById('selected-room-price');
+            const totalElement = document.getElementById('selected-room-total');
+
+            // 3. Define your room data (your backend will do this later)
+            const roomData = {
+                'deluxe': { name: 'Deluxe Room', price: 250 },
+                'executive': { name: 'Executive Suite', price: 400 },
+                'luxury': { name: 'Luxury Villa', price: 700 }
+            };
+
+            // 4. Update the page
+            if (roomType && roomData[roomType]) {
+                const room = roomData[roomType];
+                roomElement.textContent = room.name;
+                priceElement.textContent = `$${room.price}`;
+                // This is a placeholder; real calculation needs date logic
+                totalElement.textContent = `$${room.price}`; 
+            } else {
+                roomElement.textContent = 'No room selected';
+                priceElement.textContent = '-';
+                totalElement.textContent = '-';
+            }
+        });
+    </script>
+
+</body>
+</html>
