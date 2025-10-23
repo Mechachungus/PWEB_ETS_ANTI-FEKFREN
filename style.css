@@ -1,15 +1,8 @@
 /* ======== Page Utilities ======== */
-
-/* Use this class for functional pages like Rooms, Booking, Login, etc. */
 body.page-no-scroll {
-    /* Resets the 200vh height from the global rule */
     min-height: 100vh;
-    
-    /* Optional: prevents a 'pop' if JS tries to change bg-color */
-    transition: none; 
+    transition: none;
 }
-
-/* Hide the sun and moon elements on these pages */
 .page-no-scroll #the-sun,
 .page-no-scroll #the-moon {
     display: none;
@@ -25,20 +18,17 @@ body.page-no-scroll {
     background: transparent;
     border-radius: 4px;
     padding: 5px;
-    /* Aligns it to the right */
-    margin-left: auto; 
+    margin-left: auto;
     max-width: 60%;
     cursor: pointer;
 }
-
 body.dark-mode .summary-select {
     color: var(--text-light);
-    background-color: #333; /* Dark mode dropdown bg */
+    background-color: #333;
 }
 body.dark-mode .summary-select option {
     background-color: #333;
 }
-
 
 /* ======== Side Menu ======== */
 #menu-overlay {
@@ -57,7 +47,6 @@ body.dark-mode .summary-select option {
     opacity: 1;
     visibility: visible;
 }
-
 #side-menu {
     position: fixed;
     top: 0;
@@ -67,22 +56,18 @@ body.dark-mode .summary-select option {
     background-color: var(--background-white);
     z-index: 1001;
     box-shadow: 4px 0 15px rgba(0,0,0,0.1);
-    
-    /* Hide it off-screen to the left */
     transform: translateX(-100%);
     transition: transform 0.3s ease-in-out;
 }
 #side-menu.open {
     transform: translateX(0);
 }
-
 .side-menu-content {
     padding: 30px;
     display: flex;
     flex-direction: column;
     height: 100%;
 }
-
 #menu-close {
     background: none;
     border: none;
@@ -93,16 +78,14 @@ body.dark-mode .summary-select option {
     top: 15px;
     right: 20px;
 }
-
 .side-menu-logo {
     height: 40px;
     width: auto;
     margin-bottom: 40px;
 }
-
 .side-menu-nav {
     list-style: none;
-    margin-bottom: auto; /* Pushes the button to the bottom */
+    margin-bottom: auto;
 }
 .side-menu-nav li {
     margin-bottom: 15px;
@@ -115,7 +98,6 @@ body.dark-mode .summary-select option {
 .side-menu-nav a:hover {
     color: var(--primary-color);
 }
-
 .side-menu-nav .btn-book {
     width: 100%;
     background-color: var(--primary-color);
@@ -124,7 +106,6 @@ body.dark-mode .summary-select option {
 .side-menu-nav .btn-book:hover {
     background-color: var(--primary-color-dark);
 }
-
 
 /* Dark Mode for Menu */
 body.dark-mode #side-menu {
@@ -143,36 +124,27 @@ body.dark-mode .side-menu-nav a {
 body.dark-mode .side-menu-nav a:hover {
     color: var(--accent-color);
 }
+
 /* ======== CSS Variables (New Theme) ======== */
 :root {
-    --primary-color: #345a40; 
+    --primary-color: #345a40;
     --primary-color-dark: #2a4833;
-    --accent-color: #ffb703; 
+    --accent-color: #ffb703;
     --accent-color-dark: #fca311;
-    --text-dark: #003049; 
-    
+    --text-dark: #003049;
     --text-light: #f4f4f4;
     --text-light-gray: #555;
     --background-white: #fff;
     --border-color: #eee;
-    
     --font-primary: 'Montserrat', sans-serif;
     --font-secondary: 'Playfair Display', serif;
-
-    /* Sun properties */
     --sun-size: 150px;
-    --sun-initial-color: #ffde59; /* Bright yellow */
-    --sun-final-color: #ff8c00; /* Deep orange */
-
-    /* ✅ UPDATED: More pronounced background colors */
-    --bg-initial-color: #E0F2FF; /* Light Morning Sky Blue */
-    --bg-final-color: #FFEAD6;   /* Warm Sunset Peach */
-    
-    /* NEW: Dark Mode Background Colors */
-    --bg-dark-initial: #7b87c6; /* Brighter start color */
-    --bg-dark-final: #1e1e2d;   /* Deep purple end color */
-
-    /* NEW: Moon Colors */
+    --sun-initial-color: #ffde59;
+    --sun-final-color: #ff8c00;
+    --bg-initial-color: #E0F2FF;
+    --bg-final-color: #FFEAD6;
+    --bg-dark-initial: #7b87c6;
+    --bg-dark-final: #1e1e2d;
     --moon-color: #E0F2FF;
     --moon-glow: rgba(179, 217, 255, 0.7);
 }
@@ -183,18 +155,14 @@ body.dark-mode .side-menu-nav a:hover {
     margin: 0;
     padding: 0;
 }
-
 body {
     font-family: var(--font-primary);
     color: var(--text-dark);
     line-height: 1.6;
-    /* JS will control the background color */
     min-height: 200vh;
     position: relative;
-    /* Smoothly transition the background color change */
     transition: background-color 0.1s ease-out;
 }
-
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -205,7 +173,6 @@ body {
     padding: 0 30px;
     margin: 0 auto;
 }
-
 a {
     text-decoration: none;
     color: var(--primary-color);
@@ -223,35 +190,25 @@ img {
 /* ======== Buttons ======== */
 #the-moon {
     position: fixed;
-    top: 50vh; /* Controlled by JS */
-    right: 0; /* Controlled by JS */
+    top: 50vh;
+    right: 0;
     width: var(--sun-size);
     height: var(--sun-size);
     border-radius: 50%;
-    
-    /* A soft, glowing moon */
     background: radial-gradient(
         circle at 50% 50%,
         rgba(255, 255, 255, 1) 0%,
         var(--moon-color) 60%,
         rgba(224, 242, 255, 0) 80%
     );
-    
-    /* A cool blue glow */
     box-shadow: 0 0 60px 20px var(--moon-color),
                 0 0 100px 40px var(--moon-glow);
-    
-    z-index: 10; /* Behind content */
+    z-index: 10;
     pointer-events: none;
     transform: translate(50%, -50%);
-    
-    /* Hide the moon by default */
-    opacity: 0; 
-    display: none; /* JS will toggle this */
+    opacity: 0;
+    display: none;
 }
-
-
-/* 3. Style the Toggle Button */
 #dark-mode-toggle {
     background: none;
     border: none;
@@ -262,7 +219,7 @@ img {
     line-height: 1;
 }
 #dark-mode-toggle .fa-sun {
-    display: none; /* Hide sun icon by default */
+    display: none;
 }
 .btn {
     display: inline-block;
@@ -293,18 +250,16 @@ img {
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1000; 
+    z-index: 1000;
     padding: 15px 0;
-    color: var(--text-dark); 
-    background-color: var(--background-white); 
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+    color: var(--text-dark);
+    background-color: var(--background-white);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     transition: background-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
 }
-
 .minimal-header.scrolled {
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
-
 .minimal-header .container-fluid {
     display: flex;
     justify-content: space-between;
@@ -336,50 +291,40 @@ img {
     cursor: pointer;
     opacity: 0.8;
 }
-.lang-selector i { font-size: 0.8em; margin-left: 5px; }
-
+.lang-selector i {
+    font-size: 0.8em;
+    margin-left: 5px;
+}
 
 /* --- THE SUN ELEMENT --- */
 #the-sun {
     position: fixed;
-    top: 50vh; /* Controlled by JS */
-    right: 0; /* Controlled by JS */
+    top: 50vh;
+    right: 0;
     width: var(--sun-size);
     height: var(--sun-size);
     border-radius: 50%;
-    
-    /* UPDATED: Brighter, more radiant gradient */
     background: radial-gradient(
         circle at 50% 50%,
-        rgba(255, 255, 255, 1) 0%,   /* Solid white hot core */
+        rgba(255, 255, 255, 1) 0%,
         rgba(255, 255, 255, 0.8) 20%,
-        var(--sun-initial-color) 50%, /* Color starts */
-        rgba(255, 204, 0, 0) 80%  /* Fades out */
-    ); 
-    
-    /* UPDATED: Much larger, stronger glow */
+        var(--sun-initial-color) 50%,
+        rgba(255, 204, 0, 0) 80%
+    );
     box-shadow: 0 0 80px 30px var(--sun-initial-color),
-                0 0 140px 60px rgba(255, 200, 0, 0.5); 
-    
-    /* Sun is in the background */
-    z-index: 10; 
+                0 0 140px 60px rgba(255, 200, 0, 0.5);
+    z-index: 10;
     pointer-events: none;
     transform: translate(50%, -50%);
     opacity: 0;
     transition: opacity 0.5s ease-out;
 }
 
-/* --- Content Adaptation --- */
-/* REMOVED all .content-adapt styles */
-
-
 /* ======== Page Content ======== */
 .page-content {
-    position: relative; 
-    z-index: 50; /* Content is ON TOP of the sun */
+    position: relative;
+    z-index: 50;
     padding-top: 80px;
-    
-    /* The whole content area is transparent */
     background-color: transparent;
 }
 
@@ -387,43 +332,27 @@ img {
 .discover-section,
 .content-grid-section,
 .newsletter-section {
-    /* Semi-transparent white background */
     background-color: rgba(255, 255, 255, 0.85);
-    
-    /* The "blur" effect */
     backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px); /* For Safari */
-    
-    /* A subtle border to define the edge */
+    -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 12px;
-    
-    /* A very subtle shadow to "lift" the glass */
     box-shadow: 0 8px 32px 0 rgba(0, 48, 73, 0.1);
-
-    /* Spacing for the panels */
     margin-bottom: 40px;
-    max-width: 1200px; /* Match container width */
-
-    /* Apply padding here */
+    max-width: 1200px;
     padding: 80px 40px;
-
-    /* Need to re-apply margin: auto for discover-section */
     margin-left: auto;
     margin-right: auto;
 }
-
 .discover-section {
-    max-width: 700px; /* Restore this specific width */
-    padding: 80px 40px; /* Ensure it has the padding */
+    max-width: 700px;
+    padding: 80px 40px;
     text-align: center;
 }
-
 .content-grid-section {
     padding-top: 40px;
-    padding-bottom: 40px; /* Reduced to account for panel padding */
+    padding-bottom: 40px;
 }
-
 .newsletter-section {
     padding-top: 60px;
     padding-bottom: 60px;
@@ -431,14 +360,11 @@ img {
     border-top: 1px solid var(--border-color);
     border-bottom: 1px solid var(--border-color);
 }
-
-
 .discover-section h2 {
     font-family: var(--font-secondary);
     font-size: 42px;
     margin-bottom: 10px;
     color: var(--text-dark);
-    /* REMOVED text-shadow */
 }
 .discover-section .subtitle {
     font-size: 18px;
@@ -450,7 +376,6 @@ img {
     font-size: 16px;
     line-height: 1.7;
     color: var(--text-light-gray);
-    /* REMOVED text-shadow */
 }
 
 /* ======== Two-Column Content Grid ======== */
@@ -459,23 +384,20 @@ img {
     grid-template-columns: 1fr 1fr;
     gap: 60px;
     align-items: center;
-    margin-bottom: 0; /* Handled by section margin */
+    margin-bottom: 0;
 }
 .grid-row.row-reverse .grid-text { order: 2; }
 .grid-row.row-reverse .grid-image { order: 1; }
-
 .grid-text h3 {
     font-family: var(--font-secondary);
     font-size: 32px;
     margin-bottom: 20px;
     color: var(--text-dark);
-    /* REMOVED text-shadow */
 }
 .grid-text p {
     color: var(--text-light-gray);
     margin-bottom: 25px;
     line-height: 1.7;
-    /* REMOVED text-shadow */
 }
 .explore-link {
     font-weight: bold;
@@ -530,7 +452,7 @@ img {
     color: var(--text-light);
     padding: 80px 0 40px;
     position: relative;
-    z-index: 50; 
+    z-index: 50;
 }
 .footer-grid {
     display: grid;
@@ -573,17 +495,11 @@ img {
     opacity: 0.7;
 }
 
-/*dark mode*/
-/* 4. The Main Dark Mode Class */
+/* ======== Dark Mode ======== */
 body.dark-mode {
-    /* Set the new dark mode background (JS will still animate this) */
     background-color: var(--bg-dark-initial);
-    
-    /* Invert text colors */
     color: var(--text-light);
 }
-
-/* 5. Toggle Sun/Moon Visibility */
 body.dark-mode #the-sun {
     display: none;
     opacity: 0;
@@ -592,24 +508,20 @@ body.dark-mode #the-moon {
     display: block;
     opacity: 1;
 }
-
-/* 6. Toggle Icons */
 body.dark-mode #dark-mode-toggle .fa-moon {
-    display: none; /* Hide moon icon */
+    display: none;
 }
 body.dark-mode #dark-mode-toggle .fa-sun {
-    display: block; /* Show sun icon */
-    color: var(--accent-color); /* Make the sun icon yellow */
+    display: block;
+    color: var(--accent-color);
 }
-
-/* 7. Invert Header & Logo */
 body.dark-mode .minimal-header {
-    background-color: #1a1a1a; /* Dark header */
+    background-color: #1a1a1a;
     color: var(--text-light);
     box-shadow: 0 2px 10px rgba(0,0,0,0.4);
 }
 body.dark-mode .header-logo {
-    filter: brightness(0) invert(1); /* Makes dark logo white */
+    filter: brightness(0) invert(1);
 }
 body.dark-mode .btn-book {
     color: var(--text-light);
@@ -620,90 +532,33 @@ body.dark-mode .btn-book:hover {
     border-color: var(--accent-color);
     color: var(--text-dark);
 }
-
-/* 8. Dark Mode "Frosted Glass" */
 body.dark-mode .discover-section,
 body.dark-mode .content-grid-section,
 body.dark-mode .newsletter-section {
-    /* Dark glass */
     background-color: rgba(10, 10, 10, 0.75);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
 }
-
-/* 9. Dark Mode Text & Link Colors */
 body.dark-mode .discover-section h2,
 body.dark-mode .grid-text h3,
 body.dark-mode .newsletter-section a {
     color: var(--text-light);
 }
-
 body.dark-mode .discover-section .description,
 body.dark-mode .grid-text p {
     color: #eee;
 }
-
 body.dark-mode .discover-section .subtitle,
 body.dark-mode .explore-link {
-    color: var(--accent-color); /* Bright yellow for links */
+    color: var(--accent-color);
 }
 body.dark-mode .explore-link:hover {
     border-bottom-color: var(--accent-color);
 }
 
-/* ======== Responsive Adjustments ======== */
-@media (max-width: 900px) {
-    .grid-row,
-    .grid-row.row-reverse {
-        grid-template-columns: 1fr;
-    }
-    .grid-row.row-reverse .grid-text { order: 1; }
-    .grid-row.row-reverse .grid-image { order: 2; }
-    
-    .footer-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    #the-sun {
-        --sun-size: 100px;
-    }
-    
-    .discover-section,
-    .content-grid-section,
-    .newsletter-section {
-        padding: 40px 20px; /* Less padding on smaller screens */
-    }
-}
-@media (max-width: 600px) {
-    .minimal-header .container-fluid { padding: 0 15px; }
-    .header-logo { height: 35px; }
-    .header-right-nav { gap: 10px; }
-    .btn-book, .lang-selector { font-size: 14px; }
-
-    .discover-section,
-    .content-grid-section,
-    .newsletter-section {
-        padding: 30px 15px; /* Even less padding */
-        margin-bottom: 20px;
-        border-radius: 8px;
-    }
-
-    .discover-section h2 { font-size: 32px; }
-
-    .grid-row { gap: 30px; }
-    .grid-text h3 { font-size: 28px; }
-
-    .newsletter-section a { font-size: 24px; }
-    
-    .footer-grid {
-        grid-template-columns: 1fr;
-    }
-}
-    /* --- Rooms Page (rooms.html) --- */
-
+/* --- Rooms Page (rooms.html) --- */
 .room-page-title {
     font-family: var(--font-secondary);
     font-size: 42px;
@@ -711,67 +566,55 @@ body.dark-mode .explore-link:hover {
     text-align: center;
     margin-bottom: 40px;
 }
-
 body.dark-mode .room-page-title {
     color: var(--text-light);
 }
-
 .room-listing {
     display: grid;
-    grid-template-columns: 1fr; /* One column on mobile */
+    grid-template-columns: 1fr;
     gap: 30px;
 }
-
 .room-type-card {
-    /* Create a frosted card */
     background-color: rgba(255, 255, 255, 0.5);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 48, 73, 0.05);
-    overflow: hidden; /* Keeps image corners rounded */
+    overflow: hidden;
     transition: all 0.3s ease;
 }
-
 body.dark-mode .room-type-card {
     background-color: rgba(10, 10, 10, 0.5);
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
-
 .room-type-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 24px rgba(0, 48, 73, 0.1);
 }
-
 .room-type-card img {
     width: 100%;
     height: 250px;
     object-fit: cover;
 }
-
 .room-type-details {
     padding: 25px;
 }
-
 .room-type-details h3 {
     font-family: var(--font-secondary);
     font-size: 28px;
     color: var(--text-dark);
     margin-bottom: 10px;
 }
-
 .room-type-details .room-meta {
     font-size: 14px;
     font-weight: bold;
     color: var(--primary-color);
     margin-bottom: 15px;
 }
-
 .room-type-details p {
     color: var(--text-light-gray);
     margin-bottom: 20px;
 }
-
 .room-type-details .btn-book {
     background-color: var(--accent-color);
     color: var(--text-dark);
@@ -781,7 +624,6 @@ body.dark-mode .room-type-card {
     background-color: var(--accent-color-dark);
     border-color: var(--accent-color-dark);
 }
-
 body.dark-mode .room-type-details h3 {
     color: var(--text-light);
 }
@@ -792,28 +634,22 @@ body.dark-mode .room-type-details p {
     color: #eee;
 }
 
-
 /* --- Booking Page (booking.html) --- */
-
 .booking-layout {
     display: grid;
-    grid-template-columns: 1fr; /* Single column on mobile */
+    grid-template-columns: 1fr;
     gap: 40px;
 }
-
 .booking-form .form-group {
     margin-bottom: 20px;
 }
-
 .booking-form .form-row {
     display: flex;
     gap: 20px;
 }
-
 .booking-form .form-row .form-group {
-    flex: 1; /* Make columns equal width */
+    flex: 1;
 }
-
 .booking-form label {
     display: block;
     font-weight: bold;
@@ -821,7 +657,6 @@ body.dark-mode .room-type-details p {
     margin-bottom: 5px;
     color: var(--text-light-gray);
 }
-
 .booking-form input[type="text"],
 .booking-form input[type="email"],
 .booking-form input[type="tel"],
@@ -835,7 +670,6 @@ body.dark-mode .room-type-details p {
     background: #fff;
     color: var(--text-dark);
 }
-
 .btn-full-width {
     width: 100%;
     padding: 15px;
@@ -846,22 +680,19 @@ body.dark-mode .room-type-details p {
 .btn-full-width:hover {
     background-color: var(--primary-color-dark);
 }
-
 .booking-summary {
     background-color: rgba(255, 255, 255, 0.5);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 12px;
     padding: 30px;
-    height: fit-content; /* Makes it stick to its content */
+    height: fit-content;
 }
-
 .booking-summary h3 {
     font-family: var(--font-secondary);
     font-size: 24px;
     color: var(--text-dark);
     margin-bottom: 20px;
 }
-
 .booking-summary .summary-item {
     display: flex;
     justify-content: space-between;
@@ -875,27 +706,21 @@ body.dark-mode .room-type-details p {
     color: var(--text-dark);
     font-weight: 700;
 }
-
 .booking-summary .summary-divider {
     height: 1px;
     background-color: var(--border-color);
     margin: 20px 0;
 }
-
 .booking-summary .summary-item.total {
     font-size: 20px;
     font-weight: bold;
 }
-
 .booking-summary .summary-note {
     font-size: 14px;
     color: var(--text-light-gray);
     margin-top: 20px;
     line-height: 1.5;
 }
-
-
-/* Dark mode for booking page */
 body.dark-mode .booking-form label {
     color: #ccc;
 }
@@ -907,7 +732,6 @@ body.dark-mode .booking-form input[type="date"] {
     border-color: #555;
     color: var(--text-light);
 }
-
 body.dark-mode .booking-summary {
     background-color: rgba(10, 10, 10, 0.5);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -923,28 +747,27 @@ body.dark-mode .booking-summary .summary-note {
 body.dark-mode .booking-summary .summary-divider {
     background-color: #444;
 }
+
 /* ======== Header Profile Icon ======== */
 .header-icon {
-    /* This rule is just for the link's layout */
     text-decoration: none;
     line-height: 1;
 }
-
 .header-icon i {
-    /* This rule styles the icon itself */
-    font-size: 32px; /* <-- Put your desired size here */
+    font-size: 32px;
     color: var(--text-dark);
     transition: color 0.3s ease;
 }
-.header-icon:hover i { /* <-- Target the <i> on hover */
+.header-icon:hover i {
     color: var(--primary-color);
 }
-body.dark-mode .header-icon i { /* <-- Target the <i> in dark mode */
+body.dark-mode .header-icon i {
     color: var(--text-light);
 }
-body.dark-mode .header-icon:hover i { /* <-- Target the <i> in dark mode on hover */
+body.dark-mode .header-icon:hover i {
     color: var(--accent-color);
 }
+
 /* ======== Profile Page Details ======== */
 .profile-details {
     background-color: rgba(255, 255, 255, 0.5);
@@ -967,7 +790,7 @@ body.dark-mode .header-icon:hover i { /* <-- Target the <i> in dark mode on hove
     color: var(--text-light-gray);
     opacity: 0.7;
     margin-bottom: 2px;
-    display: block; /* Ensure label is on its own line */
+    display: block;
 }
 .profile-details input[readonly] {
     width: 100%;
@@ -980,7 +803,6 @@ body.dark-mode .header-icon:hover i { /* <-- Target the <i> in dark mode on hove
     color: var(--text-dark);
     cursor: default;
 }
-/* This removes the margin from the form-group div */
 .profile-details .form-group {
     margin-bottom: 15px;
 }
@@ -1000,7 +822,7 @@ body.dark-mode .profile-details input[readonly] {
     border-bottom-color: #444;
 }
 
-/* ======== ✅ NEW: Profile Tabs ======== */
+/* ======== Profile Tabs ======== */
 .tabs {
     display: flex;
     border-bottom: 2px solid var(--border-color);
@@ -1016,7 +838,7 @@ body.dark-mode .profile-details input[readonly] {
     padding: 10px 20px;
     cursor: pointer;
     border-bottom: 3px solid transparent;
-    margin-bottom: -2px; /* Aligns with the container border */
+    margin-bottom: -2px;
     transition: all 0.3s ease;
 }
 .tab-link.active,
@@ -1025,10 +847,10 @@ body.dark-mode .profile-details input[readonly] {
     border-bottom-color: var(--primary-color);
 }
 .tab-content {
-    display: none; /* Hide all tabs by default */
+    display: none;
 }
 .tab-content.active {
-    display: block; /* Show only the active one */
+    display: block;
 }
 body.dark-mode .tabs {
     border-bottom-color: #444;
@@ -1042,7 +864,7 @@ body.dark-mode .tab-link:hover {
     border-bottom-color: var(--accent-color);
 }
 
-/* ======== ✅ NEW: Order History ======== */
+/* ======== Order History ======== */
 .order-history-list h3 {
     font-family: var(--font-secondary);
     font-size: 24px;
@@ -1118,7 +940,7 @@ body.dark-mode .review-submitted i {
     color: var(--accent-color);
 }
 
-/* ======== ✅ NEW: Review Page (star rating) ======== */
+/* ======== Review Page (star rating) ======== */
 .star-rating {
     font-size: 28px;
     color: #ccc;
@@ -1131,7 +953,6 @@ body.dark-mode .review-submitted i {
 .star-rating i.fas.filled {
     color: var(--accent-color);
 }
-/* Style textareas like inputs */
 textarea {
     width: 100%;
     padding: 12px;
@@ -1141,7 +962,7 @@ textarea {
     font-size: 16px;
     background: #fff;
     color: var(--text-dark);
-    resize: vertical; /* Allow vertical resize only */
+    resize: vertical;
 }
 body.dark-mode textarea {
     background: #333;
@@ -1149,7 +970,7 @@ body.dark-mode textarea {
     color: var(--text-light);
 }
 
-/* ======== ✅ NEW: Membership Page ======== */
+/* ======== Membership Page ======== */
 .membership-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -1196,7 +1017,6 @@ body.dark-mode textarea {
     background-color: var(--accent-color-dark);
     border-color: var(--accent-color-dark);
 }
-/* Active/Recommended tier */
 .membership-card.active {
     background-color: rgba(255, 255, 255, 0.8);
     transform: scale(1.05);
@@ -1207,7 +1027,6 @@ body.dark-mode textarea {
     color: var(--text-light);
     border-color: var(--primary-color);
 }
-
 body.dark-mode .membership-card {
     background-color: rgba(10, 10, 10, 0.5);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -1222,7 +1041,6 @@ body.dark-mode .membership-card h3 {
 body.dark-mode .membership-discount {
     color: var(--accent-color);
 }
-
 body.dark-mode .membership-price {
     color: var(--accent-color);
 }
@@ -1230,7 +1048,7 @@ body.dark-mode .membership-card p {
     color: #eee;
 }
 
-/* ======== ✅ NEW: Language Selector Button ======== */
+/* ======== Language Selector Button ======== */
 .lang-selector {
     background: none;
     border: 1px solid transparent;
@@ -1255,22 +1073,10 @@ body.dark-mode .lang-selector:hover {
     background-color: rgba(255,255,255,0.1);
 }
 
-
-/* ... Your existing @media queries ... */
-
-/* Make sure to add the new layouts to your responsive rules */
-@media (min-width: 900px) {
-    .membership-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
 /* ======== Auth Forms (Login/Register) ======== */
 .auth-panel {
-    max-width: 500px; /* Make login/register forms narrow */
+    max-width: 500px;
 }
-
-/* Re-using booking form styles */
 .auth-panel .form-group {
     margin-bottom: 20px;
 }
@@ -1294,14 +1100,11 @@ body.dark-mode .lang-selector:hover {
     background: #fff;
     color: var(--text-dark);
 }
-
 .auth-switch {
     text-align: center;
     margin-top: 20px;
     font-size: 14px;
 }
-
-/* Dark mode for auth forms */
 body.dark-mode .auth-panel label {
     color: #ccc;
 }
@@ -1314,94 +1117,64 @@ body.dark-mode .auth-panel input[type="password"] {
     color: var(--text-light);
 }
 
-/* --- Responsive (Add these at the end of your CSS, inside the media queries) --- */
-
+/* ======== Responsive Adjustments ======== */
 @media (min-width: 900px) {
     .room-listing {
-        /* 3 columns on desktop */
         grid-template-columns: repeat(3, 1fr);
     }
-
     .booking-layout {
-        /* 2 columns on desktop */
         grid-template-columns: 2fr 1fr;
     }
+    .membership-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
-
 @media (max-width: 900px) {
+    .grid-row,
+    .grid-row.row-reverse {
+        grid-template-columns: 1fr;
+    }
+    .grid-row.row-reverse .grid-text { order: 1; }
+    .grid-row.row-reverse .grid-image { order: 2; }
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    #the-sun {
+        --sun-size: 100px;
+    }
+    .discover-section,
+    .content-grid-section,
+    .newsletter-section {
+        padding: 40px 20px;
+    }
     .room-listing {
-        /* 2 columns on tablet */
         grid-template-columns: repeat(2, 1fr);
     }
 }
-
 @media (max-width: 600px) {
-    .room-listing {
-        /* 1 column on mobile (already set) */
+    .minimal-header .container-fluid { padding: 0 15px; }
+    .header-logo { height: 35px; }
+    .header-right-nav { gap: 10px; }
+    .btn-book, .lang-selector { font-size: 14px; }
+    .discover-section,
+    .content-grid-section,
+    .newsletter-section {
+        padding: 30px 15px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+    }
+    .discover-section h2 { font-size: 32px; }
+    .grid-row { gap: 30px; }
+    .grid-text h3 { font-size: 28px; }
+    .newsletter-section a { font-size: 24px; }
+    .footer-grid {
         grid-template-columns: 1fr;
     }
-    
+    .room-listing {
+        grid-template-columns: 1fr;
+    }
     .room-page-title {
         font-size: 32px;
     }
 }
-/* ======== Profile Page Details ======== */
 
-.profile-details {
-    /* Uses styles from booking-summary but with less padding */
-    background-color: rgba(255, 255, 255, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 12px;
-    padding: 20px 30px;
-    margin-bottom: 30px;
-    text-align: left; /* Override parent's center-align */
-}
-
-.profile-details h3 {
-    font-family: var(--font-secondary);
-    font-size: 24px;
-    color: var(--text-dark);
-    margin-bottom: 20px;
-    text-align: center; /* Center the 'Your Details' heading */
-}
-
-.profile-details label {
-    font-size: 12px;
-    font-weight: bold;
-    color: var(--text-light-gray);
-    opacity: 0.7;
-    margin-bottom: 2px;
-}
-
-.profile-details input[readonly] {
-    width: 100%;
-    padding: 10px 0px; /* Less padding */
-    border: none;
-    border-bottom: 1px solid var(--border-color);
-    font-family: var(--font-primary);
-    font-size: 16px;
-    background: transparent;
-    color: var(--text-dark);
-    cursor: default;
-    margin-bottom: 15px; /* from form-group */
-}
-
-/* Dark Mode for Profile Details */
-body.dark-mode .profile-details {
-    background-color: rgba(10, 10, 10, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-body.dark-mode .profile-details h3 {
-    color: var(--text-light);
-}
-
-body.dark-mode .profile-details label {
-    color: #ccc;
-}
-
-body.dark-mode .profile-details input[readonly] {
-    background: transparent;
-    color: #eee;
-    border-bottom-color: #444;
-}
