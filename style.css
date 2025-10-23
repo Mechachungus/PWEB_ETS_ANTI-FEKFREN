@@ -1,3 +1,20 @@
+/* ======== Page Utilities ======== */
+
+/* Use this class for functional pages like Rooms, Booking, Login, etc. */
+body.page-no-scroll {
+    /* Resets the 200vh height from the global rule */
+    min-height: 100vh;
+    
+    /* Optional: prevents a 'pop' if JS tries to change bg-color */
+    transition: none; 
+}
+
+/* Hide the sun and moon elements on these pages */
+.page-no-scroll #the-sun,
+.page-no-scroll #the-moon {
+    display: none;
+}
+
 /* ======== Side Menu ======== */
 
 #menu-overlay {

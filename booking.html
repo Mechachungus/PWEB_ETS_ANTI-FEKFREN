@@ -10,8 +10,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/litepicker/dist/css/litepicker.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/litepicker.js"></script>
 </head>
-<body>
+<body class="page-no-scroll">
 
     <header class="minimal-header">
         </header>
@@ -46,17 +48,10 @@
                             </div>
 
                             <h3>Select Dates</h3>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="check-in">Check-In</label>
-                                    <input type="date" id="check-in" name="check-in" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="check-out">Check-Out</label>
-                                    <input type="date" id="check-out" name="check-out" required>
-                                </div>
+                            <div class="form-group">
+                                <label for="date-picker">Check-In & Check-Out</label>
+                                <input type="text" id="date-picker" name="date-range" required>
                             </div>
-
                             <h3>Payment Details</h3>
                             <div class="form-group">
                                 <label for="card-name">Name on Card</label>
@@ -113,37 +108,60 @@
     <script src="script.js"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // 1. Get the URL parameters
-            const params = new URLSearchParams(window.location.search);
-            const roomType = params.get('room');
-
-            // 2. Find the elements to update
-            const roomElement = document.getElementById('selected-room-type');
-            const priceElement = document.getElementById('selected-room-price');
-            const totalElement = document.getElementById('selected-room-total');
-
-            // 3. Define your room data (your backend will do this later)
-            const roomData = {
-                'deluxe': { name: 'Deluxe Room', price: 250 },
-                'executive': { name: 'Executive Suite', price: 400 },
-                'luxury': { name: 'Luxury Villa', price: 700 }
+    document.addEventListener('DOMContentLoaded', function() {
+        // This function will get the locked dates from your backend.
+        // For now, it just has fake data for testing.
+        // Your colleague will replace the inside of this function.
+        function getLockedDatesForRoom(roomType) {
+            console.log(`Fetching booked dates for: ${roomType}`);
+            // --- FAKE BACKEND DATA (FOR DEMO) ---
+            // In the future, your colleague will make this fetch from a real database.
+            const fakeBookedDates = {
+                'deluxe': ['2025-11-10', '2025-11-11', '2025-11-18', '2025-11-19', '2025-11-20'],
+                'executive': ['2025-11-12', '2025-11-13'],
+                'luxury': ['2025-11-15']
             };
+            // This is what your frontend code will look like:
+            // return fetch(`/api/rooms/${roomType}/booked-dates`)
+            //     .then(response => response.json())
+            //     .then(data => data.lockedDays);
+            
+            // For now, we return the fake data immediately:
+            return Promise.resolve(fakeBookedDates[roomType] || []);
+        }
 
-            // 4. Update the page
-            if (roomType && roomData[roomType]) {
-                const room = roomData[roomType];
-                roomElement.textContent = room.name;
-                priceElement.textContent = `$${room.price}`;
-                // This is a placeholder; real calculation needs date logic
-                totalElement.textContent = `$${room.price}`; 
-            } else {
-                roomElement.textContent = 'No room selected';
-                priceElement.textContent = '-';
-                totalElement.textContent = '-';
-            }
+        // --- Get the currently selected room ---
+        const params = new URLSearchParams(window.location.search);
+        const roomType = params.get('room'); // 'deluxe', 'executive', etc.
+
+        // --- Initialize the Date Picker ---
+        // We run this *after* we get the locked dates.
+        getLockedDatesForRoom(roomType).then(lockedDays => {
+            
+            const picker = new Litepicker({
+                element: document.getElementById('date-picker'),
+                singleMode: false, // This enables "range" selection
+                allowRepick: true, // Lets user click new start/end
+                format: 'MMM D, YYYY', // How the date looks in the input
+                minDate: new Date(), // User can't book in the past
+                lockDays: lockedDays, // ⭐️ THIS IS THE AVAILABILITY CHECK
+                tooltipText: {
+                    one: 'night',
+                    other: 'nights'
+                },
+                setup: (picker) => {
+                    // This shows an error if user tries to book a locked range
+                    picker.on('tooltip', (tooltip, day) => {
+                        if (day.isLocked) {
+                            tooltip.innerHTML = 'Sorry, this date is unavailable';
+                        }
+                    });
+                }
+            });
+
         });
-    </script>
+    });
+</script>
 
 </body>
 </html>
