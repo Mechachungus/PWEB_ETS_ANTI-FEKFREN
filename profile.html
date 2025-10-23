@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - East Out Hotel</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="page-no-scroll">
+
+    <header class="minimal-header">
+        </header>
+    
+    <main class="page-content">
+        <section class="discover-section auth-panel">
+            <h2 class="room-page-title" id="welcome-heading">Welcome!</h2>
+            
+            <p>This is your personal dashboard. From here you can view your profile details and booking history.</p>
+            
+            <button id="logout-button" class="btn btn-book btn-full-width">Logout</button>
+        </section>
+    </main>
+    
+    <footer class="main-footer" id="main-footer">
+         </footer>
+
+    <script src="script.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- 1. Check if user is logged in ---
+            if (localStorage.getItem('isLoggedIn') !== 'true') {
+                // Not logged in, redirect to login page
+                window.location.href = 'login.html';
+            }
+            
+            // --- 2. Personalize the page ---
+            const userName = localStorage.getItem('userName');
+            document.getElementById('welcome-heading').textContent = `Welcome, ${userName}!`;
+            
+            // --- 3. Logout Button ---
+            document.getElementById('logout-button').addEventListener('click', function() {
+                // Clear the login status
+                localStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('userName');
+                
+                // Redirect to homepage
+                window.location.href = 'index.html';
+            });
+        });
+    </script>
+</body>
+</html>

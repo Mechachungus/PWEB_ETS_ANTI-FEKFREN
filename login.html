@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - East Out Hotel</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="page-no-scroll">
+
+    <header class="minimal-header">
+        </header>
+    
+    <main class="page-content">
+        <section class="discover-section auth-panel">
+            <h2 class="room-page-title">Login</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="username">Username (or Email)</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-book btn-full-width">Login</button>
+            </form>
+            <p class="auth-switch">Don't have an account? <a href="register.html">Register here</a></p>
+        </section>
+    </main>
+    
+    <footer class="main-footer" id="main-footer">
+         </footer>
+
+    <script src="script.js"></script>
+    
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault(); // Stop the form from submitting
+            
+            // --- THIS IS THE SIMULATION ---
+            // In a real app, you'd send this to the backend for verification.
+            // For now, we'll just pretend the login is successful.
+            
+            // 1. Get the username
+            const username = document.getElementById('username').value;
+            
+            // 2. Store "logged in" status and username
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('userName', username || 'Guest');
+            
+            // 3. Redirect to the profile page
+            window.location.href = 'profile.html';
+        });
+    </script>
+</body>
+</html>

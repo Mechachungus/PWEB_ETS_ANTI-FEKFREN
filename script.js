@@ -157,8 +157,30 @@ document.addEventListener("DOMContentLoaded", function() {
         sideMenu.classList.remove('open');
         menuOverlay.classList.remove('open');
     }
-
-    // Event Listeners
+    
+    // --- ✅ 5. GLOBAL AUTH CHECK ---
+    // This runs on every page load to check login status
+    
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    const profileIconLink = document.getElementById('profile-icon-link');
+    
+    if (isLoggedIn === 'true' && profileIconLink) {
+        // User is logged in, change link to profile
+        profileIconLink.href = 'profile.html';
+        profileIconLink.setAttribute('aria-label', 'View Profile');
+    } else {
+        // User is not logged in, ensure link is login
+        profileIconLink.href = 'login.html';
+        profileIconLink.setAttribute('aria-label', 'Login or Register');
+    }
+    
+    
+    // Initial call to set orb position at page load
+    handleScroll();
+    
+    // Add event listeners
+    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("resize", handleScroll);
     menuToggle.addEventListener('click', openMenu);
     menuClose.addEventListener('click', closeMenu);
     menuOverlay.addEventListener('click', closeMenu);
