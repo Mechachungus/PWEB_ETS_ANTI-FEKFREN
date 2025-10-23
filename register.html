@@ -54,23 +54,56 @@
     <main class="page-content">
         <section class="discover-section auth-panel">
             <h2 class="room-page-title">Create Account</h2>
+            
             <form id="register-form">
+                
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+
                 <div class="form-group">
                     <label for="full-name">Full Name</label>
                     <input type="text" id="full-name" name="full-name" required>
                 </div>
+
                 <div class="form-group">
                     <label for="email">Email Address</label>
                     <input type="email" id="email" name="email" required>
                 </div>
+
                  <div class="form-group">
                     <label for="phone">Phone Number</label>
                     <input type="tel" id="phone" name="phone">
                 </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select id="gender" name="gender" class="summary-select" style="width: 100%; max-width: 100%;">
+                            <option value="">Select...</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Rather not say</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="birthdate">Birthdate</label>
+                        <input type="date" id="birthdate" name="birthdate">
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" required>
                 </div>
+                
+                <div class="form-group">
+                    <label for="re-password">Re-enter Password</label>
+                    <input type="password" id="re-password" name="re-password" required>
+                </div>
+                
                 <button type="submit" class="btn btn-book btn-full-width">Register</button>
             </form>
             <p class="auth-switch">Already have an account? <a href="login.html">Login here</a></p>
@@ -126,10 +159,23 @@
         document.getElementById('register-form').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // SIMULATION
+            // Get password values
+            const password = document.getElementById('password').value;
+            const rePassword = document.getElementById('re-password').value;
+            
+            // --- 1. Check if passwords match ---
+            if (password !== rePassword) {
+                alert("Passwords do not match. Please try again.");
+                return; // Stop the script
+            }
+            
+            // --- 2. If they match, proceed with simulation ---
             const fullName = document.getElementById('full-name').value;
+            const username = document.getElementById('username').value;
+            
             localStorage.setItem('isLoggedIn', 'true');
-            localStorage.setItem('userName', fullName || 'Guest');
+            // Store username, fallback to full name
+            localStorage.setItem('userName', username || fullName || 'Guest'); 
             
             window.location.href = 'profile.html';
         });
