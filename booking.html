@@ -156,91 +156,126 @@
     <script src="script.js"></script>
     <!-- Page-specific script -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // --- 1. Define Room Data & Select Elements ---
-            const roomData = {
-                'deluxe': { name: 'Deluxe Room', price: 250 },
-                'executive': { name: 'Executive Suite', price: 400 },
-                'luxury': { name: 'Luxury Villa', price: 700 }
+    document.addEventListener('DOMContentLoaded', function() {
+        // --- 1. Define Room Data & Select Elements ---
+        const roomData = {
+            'deluxe': { name: 'Deluxe Room', price: 250 },
+            'executive': { name: 'Executive Suite', price: 400 },
+            'luxury': { name: 'Luxury Villa', price: 700 }
+        };
+        
+        const roomSelect = document.getElementById('room-type-select');
+        const priceElement = document.getElementById('selected-room-price');
+        const totalElement = document.getElementById('selected-room-total');
+        const datePickerInput = document.getElementById('date-picker'); // Get the date input
+        
+        let picker = null; // We'll store the date picker here
+        let numberOfNights = 0; // Store the number of nights selected
+
+        // --- 2. Helper Functions ---
+
+        /**
+         * Calculates the total price based on room type and number of nights.
+         */
+        function calculateAndUpdateTotal(roomType) {
+            if (roomType && roomData[roomType] && numberOfNights > 0) {
+                const room = roomData[roomType];
+                const totalPrice = room.price * numberOfNights;
+                priceElement.textContent = `$${room.price}`;
+                totalElement.textContent = `$${totalPrice}`;
+            } else if (roomType && roomData[roomType]) {
+                 // Only show price per night if dates aren't selected yet
+                 priceElement.textContent = `$${room.price}`;
+                 totalElement.textContent = '-';
+            }
+             else {
+                priceElement.textContent = '-';
+                totalElement.textContent = '-';
+            }
+        }
+
+        /**
+         * Gets fake locked dates. Your colleague will update this.
+         */
+        function getLockedDatesForRoom(roomType) {
+            // ... (keep this function exactly as it was) ...
+            console.log(`Fetching booked dates for: ${roomType}`);
+            const fakeBookedDates = {
+                'deluxe': ['2025-11-10', '2025-11-11', '2025-11-18', '2025-11-19', '2025-11-20'],
+                'executive': ['2025-11-12', '2025-11-13'],
+                'luxury': ['2025-11-15']
             };
-            
-            const roomSelect = document.getElementById('room-type-select');
-            const priceElement = document.getElementById('selected-room-price');
-            const totalElement = document.getElementById('selected-room-total');
-            
-            let picker = null; // We'll store the date picker here
+            return Promise.resolve(fakeBookedDates[roomType] || []);
+        }
 
-            // --- 2. Helper Functions ---
-            
-            function updatePrice(roomType) {
-                if (roomType && roomData[roomType]) {
-                    const room = roomData[roomType];
-                    priceElement.textContent = `$${room.price}`;
-                    totalElement.textContent = `$${room.price}`; 
-                } else {
-                    priceElement.textContent = '-';
-                    totalElement.textContent = '-';
-                }
+        /**
+         * Initializes or re-initializes the date picker
+         * with locked dates for the selected room.
+         */
+        function initializeLitepicker(roomType) {
+            if (picker) {
+                picker.destroy();
             }
+            
+            getLockedDatesForRoom(roomType).then(lockedDays => {
+                picker = new Litepicker({
+                    element: datePickerInput, // Use the variable
+                    singleMode: false,
+                    allowRepick: true,
+                    format: 'MMM D, YYYY',
+                    minDate: new Date(),
+                    lockDays: lockedDays,
+                    tooltipText: { one: 'night', other: 'nights' },
+                    setup: (pickerInstance) => {
+                        pickerInstance.on('tooltip', (tooltip, day) => {
+                            if (day.isLocked) {
+                                tooltip.innerHTML = 'Sorry, this date is unavailable';
+                            }
+                        });
 
-            function getLockedDatesForRoom(roomType) {
-                console.log(`Fetching booked dates for: ${roomType}`);
-                const fakeBookedDates = {
-                    'deluxe': ['2025-11-10', '2025-11-11', '2025-11-18', '2025-11-19', '2025-11-20'],
-                    'executive': ['2025-11-12', '2025-11-13'],
-                    'luxury': ['2025-11-15']
-                };
-                return Promise.resolve(fakeBookedDates[roomType] || []);
-            }
-
-            function initializeLitepicker(roomType) {
-                if (picker) {
-                    picker.destroy();
-                }
-                
-                getLockedDatesForRoom(roomType).then(lockedDays => {
-                    picker = new Litepicker({
-                        element: document.getElementById('date-picker'),
-                        singleMode: false,
-                        allowRepick: true,
-                        format: 'MMM D, YYYY',
-                        minDate: new Date(),
-                        lockDays: lockedDays,
-                        tooltipText: { one: 'night', other: 'nights' },
-                        setup: (pickerInstance) => {
-                            pickerInstance.on('tooltip', (tooltip, day) => {
-                                if (day.isLocked) {
-                                    tooltip.innerHTML = 'Sorry, this date is unavailable';
-                                }
-                            });
-                        }
-                    });
+                        // ✅ NEW: Listen for date selection
+                        pickerInstance.on('selected', (date1, date2) => {
+                            if (date1 && date2) {
+                                // Calculate difference in milliseconds
+                                const diffTime = Math.abs(date2.dateInstance - date1.dateInstance);
+                                // Convert milliseconds to days
+                                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                                numberOfNights = diffDays;
+                            } else {
+                                numberOfNights = 0; // Reset if only one date is picked
+                            }
+                            // Recalculate total whenever dates change
+                            calculateAndUpdateTotal(roomSelect.value);
+                        });
+                    }
                 });
-            }
-
-            // --- 3. Event Listeners ---
-            
-            roomSelect.addEventListener('change', function() {
-                const selectedRoom = this.value;
-                updatePrice(selectedRoom);
-                initializeLitepicker(selectedRoom);
             });
+        }
 
-            // --- 4. Initial Page Load Logic ---
-            
-            const params = new URLSearchParams(window.location.search);
-            const urlRoom = params.get('room');
-            
-            if (urlRoom && roomData[urlRoom]) {
-                roomSelect.value = urlRoom;
-                roomSelect.disabled = true;
-            }
-            
-            const initialRoom = roomSelect.value;
-            updatePrice(initialRoom);
-            initializeLitepicker(initialRoom);
+        // --- 3. Event Listeners ---
+        
+        roomSelect.addEventListener('change', function() {
+            const selectedRoom = this.value;
+            // Update price AND total when room changes
+            calculateAndUpdateTotal(selectedRoom); 
+            initializeLitepicker(selectedRoom); 
         });
-    </script>
+
+        // --- 4. Initial Page Load Logic ---
+        
+        const params = new URLSearchParams(window.location.search);
+        const urlRoom = params.get('room');
+        
+        if (urlRoom && roomData[urlRoom]) {
+            roomSelect.value = urlRoom;
+            roomSelect.disabled = true;
+        }
+        
+        const initialRoom = roomSelect.value;
+        calculateAndUpdateTotal(initialRoom); // Use the updated function
+        initializeLitepicker(initialRoom);
+    });
+</script>
 </body>
 </html>
 

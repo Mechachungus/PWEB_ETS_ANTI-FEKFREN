@@ -110,18 +110,18 @@ const translations = {
         'review_description': 'Description',
         'review_submit': 'Submit Review',
 
-        // --- Membership Page ---
+        // --- ✅ UPDATED: Membership Page ---
         'membership_title': 'Our Membership',
         'membership_subtitle': 'Join our exclusive membership program to enjoy discounts and special benefits on every stay.',
-        'membership_silver_name': 'Silver',
-        'membership_silver_discount': '5% Discount',
-        'membership_silver_desc': 'Enjoy a 5% discount on all room bookings, priority check-in, and a complimentary welcome drink.',
-        'membership_gold_name': 'Gold',
-        'membership_gold_discount': '10% Discount',
-        'membership_gold_desc': 'Get 10% off all bookings, free room upgrades (when available), and complimentary breakfast for one.',
-        'membership_platinum_name': 'Platinum',
-        'membership_platinum_discount': '15% Discount',
-        'membership_platinum_desc': 'Our top tier offers 15% off, guaranteed room upgrades, and full complimentary breakfast for two.',
+        'membership_basic_name': 'Basic',
+        'membership_basic_discount': '5% Discount',
+        'membership_basic_desc': 'Enjoy a 5% discount on room bookings and receive exclusive member-only email offers.',
+        'membership_vip_name': 'VIP',
+        'membership_vip_discount': '10% Discount',
+        'membership_vip_desc': 'Get 10% off all bookings, priority check-in, a complimentary welcome drink, and late checkout options.',
+        'membership_vvip_name': 'VVIP',
+        'membership_vvip_discount': '15% Discount',
+        'membership_vvip_desc': 'Our top tier offers 15% off, free room upgrades (subject to availability), complimentary breakfast, and exclusive lounge access.',
         'join_now': 'Join Now',
 
         // --- Footer ---
@@ -250,18 +250,18 @@ const translations = {
         'review_description': 'Deskripsi',
         'review_submit': 'Kirim Ulasan',
 
-        // --- Membership Page ---
+        // --- ✅ UPDATED: Membership Page ---
         'membership_title': 'Keanggotaan Kami',
         'membership_subtitle': 'Bergabunglah dengan program keanggotaan eksklusif kami untuk menikmati diskon dan keuntungan khusus setiap kali menginap.',
-        'membership_silver_name': 'Silver',
-        'membership_silver_discount': 'Diskon 5%',
-        'membership_silver_desc': 'Nikmati diskon 5% untuk semua pemesanan kamar, prioritas check-in, dan minuman selamat datang gratis.',
-        'membership_gold_name': 'Gold',
-        'membership_gold_discount': 'Diskon 10%',
-        'membership_gold_desc': 'Dapatkan diskon 10% untuk semua pemesanan, upgrade kamar gratis (bila tersedia), dan sarapan gratis untuk satu orang.',
-        'membership_platinum_name': 'Platinum',
-        'membership_platinum_discount': 'Diskon 15%',
-        'membership_platinum_desc': 'Tingkat teratas kami menawarkan diskon 15%, jaminan upgrade kamar, dan sarapan gratis penuh untuk dua orang.',
+        'membership_basic_name': 'Basic',
+        'membership_basic_discount': 'Diskon 5%',
+        'membership_basic_desc': 'Nikmati diskon 5% untuk pemesanan kamar dan terima penawaran email eksklusif khusus anggota.',
+        'membership_vip_name': 'VIP',
+        'membership_vip_discount': 'Diskon 10%',
+        'membership_vip_desc': 'Dapatkan diskon 10% untuk semua pemesanan, prioritas check-in, minuman selamat datang gratis, dan opsi check-out lebih lambat.',
+        'membership_vvip_name': 'VVIP',
+        'membership_vvip_discount': 'Diskon 15%',
+        'membership_vvip_desc': 'Tingkat teratas kami menawarkan diskon 15%, upgrade kamar gratis (tergantung ketersediaan), sarapan gratis, dan akses lounge eksklusif.',
         'join_now': 'Bergabung Sekarang',
 
         // --- Footer ---
