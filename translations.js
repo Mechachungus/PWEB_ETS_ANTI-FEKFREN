@@ -267,7 +267,7 @@ const translations = {
         'membership_vip_discount': 'Diskon 25%',
         'membership_vip_desc': 'Untuk Anda, sahabat terbaik kami. Anda akan mendapatkan akses diskon khusus 25% untuk setiap transaksi. Anda juga akan mendapatkan hadiah khusus untuk ulang tahun Anda.',
         'membership_vvip_name': 'VVIP',
-        'membership_vvip_price': 'Rp1.200.000', // Harga diformat (Catatan: Dari SQL)
+        'membership_vvip_price': 'Rp1.200.000', // Harga diformat 
         'membership_vvip_discount': 'Diskon 50%',
         'membership_vvip_desc': 'Untuk Anda, keluarga kami. Anda akan mendapatkan akses diskon khusus 50% untuk setiap transaksi. Anda dapat menikmati hidangan gratis dua kali seminggu. Anda juga akan mendapatkan hadiah khusus untuk ulang tahun Anda.',
         'join_now': 'Bergabung Sekarang',
