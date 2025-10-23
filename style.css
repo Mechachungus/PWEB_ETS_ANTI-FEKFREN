@@ -924,11 +924,15 @@ body.dark-mode .booking-summary .summary-divider {
 }
 /* ======== Header Profile Icon ======== */
 .header-icon {
-    font-size: 128px; /* Adjust size */
-    color: var(--text-dark);
+    /* This rule is just for the link's layout */
     text-decoration: none;
     line-height: 1;
-    padding: 5px;
+}
+
+.header-icon i {
+    /* This rule styles the icon itself */
+    font-size: 128px; /* <-- Put your desired size here */
+    color: var(--text-dark);
     transition: color 0.3s ease;
 }
 .header-icon:hover {
