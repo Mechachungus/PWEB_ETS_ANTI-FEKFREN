@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Our Rooms - East Out Hotel</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="page-no-scroll">
+
+    <div id="menu-overlay"></div>
+    <nav id="side-menu">
+        <button id="menu-close" aria-label="Close menu"><i class="fas fa-times"></i></button>
+        <div class="side-menu-content">
+            <a href="{{ route('home') }}">
+                <img src="/logohd.png" alt="East Out Hotel Logo" class="side-menu-logo">
+            </a>
+            <ul class="side-menu-nav">
+                <li><a href="{{ route('home') }}">Home</a></li>
+                <li><a href="{{ route('rooms') }}">Rooms</a></li>
+                <li><a href="#">Gallery</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            <a href="{{ route('booking') }}" class="btn btn-book">Book Now</a>
+        </div>
+    </nav>
+
+    <header class="minimal-header">
+        <div class="container-fluid">
+            <button class="menu-toggle" aria-label="Toggle Navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="hotel-name-center">
+                <a href="{{ route('home') }}">
+                    <img src="/logohd.png" alt="East Out Hotel Logo" class="header-logo">
+                </a>
+            </div>
+            <div class="header-right-nav">
+                <div class="lang-selector">
+                    EN <i class="fas fa-chevron-down"></i>
+                </div>
+                <button id="dark-mode-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i> <i class="fas fa-sun"></i>
+                </button>
+                
+                <a href="/profile" id="profile-icon-link" class="header-icon" aria-label="Login or Profile">
+                    <i class="fas fa-user-circle"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div id="the-sun"></div>
+    <div id="the-moon"></div>
+
+    <main class="page-content">
+        
+        <section class="content-grid-section">
+            <div class="container">
+                
+                <h2 class="room-page-title">Our Rooms</h2>
+                
+                <div class="room-listing">
+
+                    <div class="room-type-card">
+                        <img src="https://via.placeholder.com/600x400/345a40/ffffff?text=Deluxe+Room" alt="Deluxe Room">
+                        <div class="room-type-details">
+                            <h3>Deluxe Room</h3>
+                            <div class="room-meta">
+                                <strong>Size:</strong> 35 sqm / 376 sqft
+                            </div>
+                            <p>Our Deluxe Rooms offer a perfect blend of comfort and style, featuring a plush king-sized bed, a modern bathroom, and serene views of the surrounding landscape.</p>
+                            
+                            <a href="{{ route('booking', ['room' => 'deluxe']) }}" class="btn btn-book">Book Now</a>
+                        </div>
+                    </div>
+
+                    <div class="room-type-card">
+                        <img src="https://via.placeholder.com/600x400/ffb703/003049?text=Executive+Suite" alt="Executive Suite">
+                        <div class="room-type-details">
+                            <h3>Executive Suite</h3>
+                            <div class="room-meta">
+                                <strong>Size:</strong> 50 sqm / 538 sqft
+                            </div>
+                            <p>Ideal for business or leisure, the Executive Suite provides a spacious living area, a private workstation, and exclusive access to our club lounge.</p>
+                            
+                            <a href="{{ route('booking', ['room' => 'executive']) }}" class="btn btn-book">Book Now</a>
+                        </div>
+                    </div>
+
+                    <div class="room-type-card">
+                        <img src="https://via.placeholder.com/600x400/003049/ffffff?text=Luxury+Villa" alt="Luxury Villa">
+                        <div class="room-type-details">
+                            <h3>Luxury Villa</h3>
+                            <div class="room-meta">
+                                <strong>Size:</strong> 75 sqm / 807 sqft
+                            </div>
+                            <p>Experience ultimate privacy in our Luxury Villa, featuring a private plunge pool, an expansive terrace, and personalized butler service for an unforgettable stay.</p>
+                            
+                            <a href="{{ route('booking', ['room' => 'luxury']) }}" class="btn btn-book">Book Now</a>
+                        </div>
+                    </div>
+
+                </div> </div> </section> </main>
+
+    <footer class="main-footer" id="main-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 East Out Hotel. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
