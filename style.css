@@ -1364,7 +1364,6 @@ body.dark-mode .auth-panel input[type="password"] {
 }
 
 .profile-details input[readonly] {
-    /* Re-use form styles but make them look read-only */
     width: 100%;
     padding: 10px 0px; /* Less padding */
     border: none;
