@@ -701,6 +701,7 @@ body.dark-mode .explore-link:hover {
     .footer-grid {
         grid-template-columns: 1fr;
     }
+}
     /* --- Rooms Page (rooms.html) --- */
 
 .room-page-title {
@@ -935,13 +936,13 @@ body.dark-mode .booking-summary .summary-divider {
     color: var(--text-dark);
     transition: color 0.3s ease;
 }
-.header-icon:hover {
+.header-icon:hover i { /* <-- Target the <i> on hover */
     color: var(--primary-color);
 }
-body.dark-mode .header-icon {
+body.dark-mode .header-icon i { /* <-- Target the <i> in dark mode */
     color: var(--text-light);
 }
-body.dark-mode .header-icon:hover {
+body.dark-mode .header-icon:hover i { /* <-- Target the <i> in dark mode on hover */
     color: var(--accent-color);
 }
 
@@ -1024,6 +1025,4 @@ body.dark-mode .auth-panel input[type="password"] {
     .room-page-title {
         font-size: 32px;
     }
-}
-
 }
