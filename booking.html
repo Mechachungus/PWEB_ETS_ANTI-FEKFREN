@@ -80,8 +80,13 @@
                     <div class="booking-summary">
                         <h3>Your Reservation</h3>
                         <div class="summary-item">
-                            <span>Room Type:</span>
-                            <strong id="selected-room-type">No room selected</strong>
+                            <label for="room-type-select">Room Type:</label>
+                            <select id="room-type-select" name="room-type" class="summary-select">
+                                <option value="">-- Select a room --</option>
+                                <option value="deluxe">Deluxe Room</option>
+                                <option value="executive">Executive Suite</option>
+                                <option value="luxury">Luxury Villa</option>
+                            </select>
                         </div>
                         <div class="summary-item">
                             <span>Price per night:</span>
@@ -108,60 +113,109 @@
     <script src="script.js"></script>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // This function will get the locked dates from your backend.
-        // For now, it just has fake data for testing.
-        // Your colleague will replace the inside of this function.
-        function getLockedDatesForRoom(roomType) {
-            console.log(`Fetching booked dates for: ${roomType}`);
-            // --- FAKE BACKEND DATA (FOR DEMO) ---
-            // In the future, your colleague will make this fetch from a real database.
-            const fakeBookedDates = {
-                'deluxe': ['2025-11-10', '2025-11-11', '2025-11-18', '2025-11-19', '2025-11-20'],
-                'executive': ['2025-11-12', '2025-11-13'],
-                'luxury': ['2025-11-15']
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- 1. Define Room Data & Select Elements ---
+            const roomData = {
+                'deluxe': { name: 'Deluxe Room', price: 250 },
+                'executive': { name: 'Executive Suite', price: 400 },
+                'luxury': { name: 'Luxury Villa', price: 700 }
             };
-            // This is what your frontend code will look like:
-            // return fetch(`/api/rooms/${roomType}/booked-dates`)
-            //     .then(response => response.json())
-            //     .then(data => data.lockedDays);
             
-            // For now, we return the fake data immediately:
-            return Promise.resolve(fakeBookedDates[roomType] || []);
-        }
-
-        // --- Get the currently selected room ---
-        const params = new URLSearchParams(window.location.search);
-        const roomType = params.get('room'); // 'deluxe', 'executive', etc.
-
-        // --- Initialize the Date Picker ---
-        // We run this *after* we get the locked dates.
-        getLockedDatesForRoom(roomType).then(lockedDays => {
+            const roomSelect = document.getElementById('room-type-select');
+            const priceElement = document.getElementById('selected-room-price');
+            const totalElement = document.getElementById('selected-room-total');
             
-            const picker = new Litepicker({
-                element: document.getElementById('date-picker'),
-                singleMode: false, // This enables "range" selection
-                allowRepick: true, // Lets user click new start/end
-                format: 'MMM D, YYYY', // How the date looks in the input
-                minDate: new Date(), // User can't book in the past
-                lockDays: lockedDays, // ⭐️ THIS IS THE AVAILABILITY CHECK
-                tooltipText: {
-                    one: 'night',
-                    other: 'nights'
-                },
-                setup: (picker) => {
-                    // This shows an error if user tries to book a locked range
-                    picker.on('tooltip', (tooltip, day) => {
-                        if (day.isLocked) {
-                            tooltip.innerHTML = 'Sorry, this date is unavailable';
+            let picker = null; // We'll store the date picker here
+
+            // --- 2. Helper Functions ---
+            
+            /**
+             * Updates the price display based on the selected room.
+             */
+            function updatePrice(roomType) {
+                if (roomType && roomData[roomType]) {
+                    const room = roomData[roomType];
+                    priceElement.textContent = `$${room.price}`;
+                    // Placeholder total. Real logic would multiply by nights selected.
+                    totalElement.textContent = `$${room.price}`; 
+                } else {
+                    priceElement.textContent = '-';
+                    totalElement.textContent = '-';
+                }
+            }
+
+            /**
+             * Gets fake locked dates. Your colleague will update this.
+             */
+            function getLockedDatesForRoom(roomType) {
+                console.log(`Fetching booked dates for: ${roomType}`);
+                const fakeBookedDates = {
+                    'deluxe': ['2025-11-10', '2025-11-11', '2025-11-18', '2025-11-19', '2025-11-20'],
+                    'executive': ['2025-11-12', '2025-11-13'],
+                    'luxury': ['2025-11-15']
+                };
+                return Promise.resolve(fakeBookedDates[roomType] || []);
+            }
+
+            /**
+             * Initializes or re-initializes the date picker
+             * with locked dates for the selected room.
+             */
+            function initializeLitepicker(roomType) {
+                // Destroy the old picker if it exists
+                if (picker) {
+                    picker.destroy();
+                }
+                
+                // Get new locked dates, then create the picker
+                getLockedDatesForRoom(roomType).then(lockedDays => {
+                    picker = new Litepicker({
+                        element: document.getElementById('date-picker'),
+                        singleMode: false,
+                        allowRepick: true,
+                        format: 'MMM D, YYYY',
+                        minDate: new Date(),
+                        lockDays: lockedDays, // ⭐️ Dynamically set locked dates
+                        tooltipText: { one: 'night', other: 'nights' },
+                        setup: (pickerInstance) => {
+                            pickerInstance.on('tooltip', (tooltip, day) => {
+                                if (day.isLocked) {
+                                    tooltip.innerHTML = 'Sorry, this date is unavailable';
+                                }
+                            });
                         }
                     });
-                }
+                });
+            }
+
+            // --- 3. Event Listeners ---
+            
+            /**
+             * When the user manually changes the room dropdown.
+             */
+            roomSelect.addEventListener('change', function() {
+                const selectedRoom = this.value;
+                updatePrice(selectedRoom);
+                initializeLitepicker(selectedRoom); // Re-load calendar
             });
 
+            // --- 4. Initial Page Load Logic ---
+            
+            const params = new URLSearchParams(window.location.search);
+            const urlRoom = params.get('room');
+            
+            if (urlRoom && roomData[urlRoom]) {
+                // A room was passed from rooms.html
+                roomSelect.value = urlRoom;
+                roomSelect.disabled = true; // Lock the dropdown
+            }
+            
+            // Initialize the page with the (pre-selected or default) room
+            const initialRoom = roomSelect.value;
+            updatePrice(initialRoom);
+            initializeLitepicker(initialRoom);
         });
-    });
-</script>
+    </script>
 
 </body>
 </html>

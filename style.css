@@ -15,8 +15,32 @@ body.page-no-scroll {
     display: none;
 }
 
-/* ======== Side Menu ======== */
+/* --- Styling for new <select> in booking summary --- */
+.summary-select {
+    font-family: var(--font-primary);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-dark);
+    border: none;
+    background: transparent;
+    border-radius: 4px;
+    padding: 5px;
+    /* Aligns it to the right */
+    margin-left: auto; 
+    max-width: 60%;
+    cursor: pointer;
+}
 
+body.dark-mode .summary-select {
+    color: var(--text-light);
+    background-color: #333; /* Dark mode dropdown bg */
+}
+body.dark-mode .summary-select option {
+    background-color: #333;
+}
+
+
+/* ======== Side Menu ======== */
 #menu-overlay {
     position: fixed;
     top: 0;
