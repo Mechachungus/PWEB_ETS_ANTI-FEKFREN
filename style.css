@@ -1175,6 +1175,12 @@ body.dark-mode textarea {
     color: var(--primary-color);
     margin-bottom: 15px;
 }
+.membership-price {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
 .membership-card p {
     color: var(--text-light-gray);
     margin-bottom: 25px;
@@ -1214,6 +1220,10 @@ body.dark-mode .membership-card h3 {
     color: var(--text-light);
 }
 body.dark-mode .membership-discount {
+    color: var(--accent-color);
+}
+
+body.dark-mode .membership-price {
     color: var(--accent-color);
 }
 body.dark-mode .membership-card p {
